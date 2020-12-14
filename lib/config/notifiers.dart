@@ -1,7 +1,7 @@
 import 'package:riverpod/all.dart';
 
-class NameListNotifier extends StateNotifier<List<String>> {
-  NameListNotifier(): super(List());
+class NameGeneratorListNotifier extends StateNotifier<List<String>> {
+  NameGeneratorListNotifier(): super(List());
 
   void clear() {
     state = List();
