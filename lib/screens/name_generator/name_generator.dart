@@ -16,16 +16,30 @@ final _isEmpty =
 class NameGenerator extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
+    final list = watch(_nameGeneratorList.state);
+
     return Scaffold(
         body: Container(
-      child: Column(
-        children: items(watch),
-      ),
-    ));
+            child: watch(_isEmpty)
+                ? Text("No names for you!")
+                : ListView.builder(
+                    itemBuilder: (context, index) => NameItem(list[index]),
+                    itemCount: list.length)));
   }
+}
 
-  List<Widget> items(ScopedReader watch) {
-    final items = watch(_nameGeneratorList.state);
-    return items.map((e) => Text(e)).toList();
+class NameItem extends StatelessWidget {
+  final String value;
+
+  NameItem(this.value);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
+        child: Text(value),
+      ),
+    );
   }
 }
