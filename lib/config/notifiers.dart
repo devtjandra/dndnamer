@@ -16,7 +16,9 @@ class NameGeneratorListNotifier extends StateNotifier<List<String>> {
   }
 
   void addItems(List<String> items) {
-    state.addAll(items);
+    var list = state;
+    list.addAll(items);
+    state = list;
   }
 
   void getItems() async {

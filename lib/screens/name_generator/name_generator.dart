@@ -1,5 +1,7 @@
 import 'package:dndnamer/config/notifiers.dart';
 import 'package:dndnamer/config/types.dart';
+import 'package:dndnamer/screens/name_generator/name_item.dart';
+import 'package:dndnamer/widgets/progress_bar.dart';
 import 'package:dndnamer/widgets/spaces.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/all.dart';
@@ -33,21 +35,35 @@ class NameGenerator extends ConsumerWidget {
         child: Stack(
           alignment: Alignment.bottomCenter,
           children: [
-            watch(isWaiting).state
-                ? _loading()
-                : (watch(_isEmpty) ? _empty() : _list(list)),
-            shadow()
+            Align(
+              alignment: Alignment.topCenter,
+              child: Container(
+                  width: double.infinity, height: 170, color: Colors.black87),
+            ),
+            Align(
+              alignment: Alignment.topCenter,
+              child: Container(
+                padding: EdgeInsets.all(30.0),
+                child: Text(
+                  "DND NAMER FOR JOSH <3",
+                  style: TextStyle(fontSize: 16.0, color: Colors.white),
+                ),
+              ),
+            ),
+            watch(_isEmpty) ? _empty() : _list(list),
+            shadow(),
+            if (watch(isWaiting).state) _loading()
           ],
         ),
       ),
-      _bottom(context)
+      Bottom()
     ])));
   }
 
   Widget _loading() {
-    return Container(
-      alignment: Alignment.center,
-      child: Text("Loading"),
+    return Padding(
+      padding: EdgeInsets.all(20.0),
+      child: ProgressBar(),
     );
   }
 
@@ -56,30 +72,41 @@ class NameGenerator extends ConsumerWidget {
   }
 
   Widget _list(List<String> items) {
-    return ListView.builder(
-        controller: _controller,
-        padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 16.0),
-        itemBuilder: (context, index) => NameItem(items[index]),
-        itemCount: items.length);
+    return Padding(
+        padding: EdgeInsets.only(top: 50),
+        child: ListView.builder(
+            controller: _controller,
+            padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 16.0),
+            itemBuilder: (context, index) => NameItem(items[index]),
+            itemCount: items.length));
   }
+}
 
-  Widget _bottom(BuildContext context) {
+class Bottom extends ConsumerWidget {
+  @override
+  Widget build(BuildContext context, ScopedReader watch) {
     return Container(
       color: Colors.white,
       child: Wrap(
         children: [
           Column(
-            children: [_raceButton(context), _buttonRow(context)],
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: OutlineButton(
+                        onPressed: () =>
+                            context.read(_nameGeneratorList).restart(),
+                        child: Text(watch(race).state)),
+                  )
+                ],
+              ),
+              _buttonRow(context)
+            ],
           )
         ],
       ),
     );
-  }
-
-  Widget _raceButton(BuildContext context) {
-    return OutlineButton(
-        onPressed: () => context.read(_nameGeneratorList).restart(),
-        child: Text("Go"));
   }
 
   Widget _buttonRow(BuildContext context) {
@@ -94,25 +121,5 @@ class NameGenerator extends ConsumerWidget {
           onPressed: () => context.read(_nameGeneratorList).restart(),
           child: Icon(Icons.favorite))
     ]);
-  }
-}
-
-class NameItem extends StatelessWidget {
-  final String value;
-
-  NameItem(this.value);
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(12.0))),
-      elevation: 4.0,
-      child: Container(
-        padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 24.0),
-        child: Text(value),
-      ),
-    );
   }
 }
