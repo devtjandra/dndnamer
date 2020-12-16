@@ -24,7 +24,7 @@ class NameGeneratorListNotifier extends StateNotifier<List<String>> {
     final raceQuery = ref.watch(race).state;
     ApiClient().getNames(raceQuery).then((value) {
       ref.read(isWaiting).state = false;
-      state = value;
+      addItems(value);
     }).catchError((error) {
       ref.read(isWaiting).state = false;
       debugPrint("Error $error");

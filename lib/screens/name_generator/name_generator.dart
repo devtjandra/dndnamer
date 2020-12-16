@@ -1,5 +1,6 @@
 import 'package:dndnamer/config/notifiers.dart';
 import 'package:dndnamer/config/types.dart';
+import 'package:dndnamer/widgets/spaces.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/all.dart';
 
@@ -12,21 +13,42 @@ final _isEmpty =
     Provider<bool>((ref) => ref.watch(_nameGeneratorList.state).isEmpty);
 
 class NameGenerator extends ConsumerWidget {
+  final _controller = ScrollController();
+
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final list = watch(_nameGeneratorList.state);
 
+    _controller.addListener(() {
+      if (_controller.position.atEdge) {
+        if (_controller.position.pixels != 0)
+          context.read(_nameGeneratorList).getItems();
+      }
+    });
+
     return SafeArea(
         child: Scaffold(
-            persistentFooterButtons: [_header(context)],
-            body: Container(
-                child: watch(isWaiting).state
-                    ? _loading()
-                    : (watch(_isEmpty) ? _empty() : _list(list)))));
+            body: Column(children: [
+      Expanded(
+        child: Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            watch(isWaiting).state
+                ? _loading()
+                : (watch(_isEmpty) ? _empty() : _list(list)),
+            shadow()
+          ],
+        ),
+      ),
+      _bottom(context)
+    ])));
   }
 
   Widget _loading() {
-    return Text("Loading");
+    return Container(
+      alignment: Alignment.center,
+      child: Text("Loading"),
+    );
   }
 
   Widget _empty() {
@@ -35,14 +57,43 @@ class NameGenerator extends ConsumerWidget {
 
   Widget _list(List<String> items) {
     return ListView.builder(
+        controller: _controller,
+        padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 16.0),
         itemBuilder: (context, index) => NameItem(items[index]),
         itemCount: items.length);
   }
 
-  Widget _header(BuildContext context) {
-    return ElevatedButton(
+  Widget _bottom(BuildContext context) {
+    return Container(
+      color: Colors.white,
+      child: Wrap(
+        children: [
+          Column(
+            children: [_raceButton(context), _buttonRow(context)],
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _raceButton(BuildContext context) {
+    return OutlineButton(
         onPressed: () => context.read(_nameGeneratorList).restart(),
-        child: Text("Generate!"));
+        child: Text("Go"));
+  }
+
+  Widget _buttonRow(BuildContext context) {
+    return Row(children: [
+      Expanded(
+          child: ElevatedButton(
+        onPressed: () => context.read(_nameGeneratorList).restart(),
+        child: Text("Go"),
+      )),
+      horizontalSpace(),
+      ElevatedButton(
+          onPressed: () => context.read(_nameGeneratorList).restart(),
+          child: Icon(Icons.favorite))
+    ]);
   }
 }
 
