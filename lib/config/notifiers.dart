@@ -10,8 +10,9 @@ class NameGeneratorListNotifier extends StateNotifier<List<String>> {
     Future.delayed(Duration.zero, () => getItems());
   }
 
-  void clear() {
+  void restart() {
     state = List();
+    getItems();
   }
 
   void addItems(List<String> items) {
