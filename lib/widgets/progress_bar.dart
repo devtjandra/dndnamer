@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
 class ProgressBar extends StatelessWidget {
+  const ProgressBar();
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 20,
-      width: 20,
+      height: 15,
+      width: 15,
       child: CircularProgressIndicator(
-        strokeWidth: 2,
+        strokeWidth: 3,
         // backgroundColor: Colors.blue,
       ),
     );

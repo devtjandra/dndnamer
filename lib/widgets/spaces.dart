@@ -7,12 +7,19 @@ Widget horizontalSpace() {
   );
 }
 
+Widget verticalSpace() {
+  return Container(
+    width: 1.0,
+    height: 12.0,
+  );
+}
+
 Widget shadow() {
   return Container(
       height: 12.0,
       width: double.infinity,
-      decoration: new BoxDecoration(
-          gradient: new LinearGradient(
+      decoration: const BoxDecoration(
+          gradient: const LinearGradient(
         begin: Alignment.bottomCenter,
         end: Alignment.topCenter,
         colors: [
