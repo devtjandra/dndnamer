@@ -1,6 +1,10 @@
+import 'package:dndnamer/config/notifiers.dart';
 import 'package:flutter/material.dart';
-import 'package:dndnamer/services/favourites_hive.dart';
 import 'package:dndnamer/widgets/spaces.dart';
+import 'package:flutter_riverpod/all.dart';
+
+final favouritesList = StateNotifierProvider<FavouritesListNotifier>(
+    (ref) => FavouritesListNotifier(ref));
 
 class DialogService {
   static void showFavouritesDialog(
@@ -55,7 +59,7 @@ class DialogService {
                     onPressed: () {
                       debugPrint(
                           "Saving ${_nameController.text}, desc ${_descriptionController.text}");
-                      FavouritesHive.save(
+                      context.read(favouritesList).save(
                           _nameController.text, _descriptionController.text);
                       Navigator.pop(dialogContext);
                     },

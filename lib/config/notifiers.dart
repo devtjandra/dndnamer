@@ -1,7 +1,9 @@
 import 'package:dndnamer/screens/name_generator/name_generator.dart';
-import 'package:dndnamer/services/api_client.dart';
+import 'package:dndnamer/services/api_client.dart';import 'package:dndnamer/models/person.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/all.dart';
+import 'package:hive/hive.dart';
+import 'package:path_provider/path_provider.dart';
 
 class NameGeneratorListNotifier extends StateNotifier<List<String>> {
   final ProviderReference ref;
@@ -34,5 +36,36 @@ class NameGeneratorListNotifier extends StateNotifier<List<String>> {
       ref.read(isWaiting).state = false;
       debugPrint("Error $error");
     });
+  }
+}
+
+class FavouritesListNotifier extends StateNotifier<List<Person>> {
+  final ProviderReference ref;
+
+  FavouritesListNotifier(this.ref) : super(List()) {
+    Future.delayed(Duration.zero, () => _init());
+  }
+
+  void _init() async {
+    var dir = await getApplicationDocumentsDirectory();
+    Hive
+      ..init(dir.path)
+      ..registerAdapter(PersonAdapter());
+  }
+
+  void save(String name, String description) {
+    Hive.openBox('people').then((value) {
+      if (!value.isOpen) return;
+      Hive.box('people').add(Person(name, description)).then((value) => refreshPeople());
+    });
+  }
+
+  void refreshPeople() {
+    Hive.openBox('people').then((value) {
+      final values = Hive.box('people').values;
+      List<Person> newPeople = List();
+      values.forEach((element) => newPeople.add(element));
+      state = newPeople;
+    }).catchError((err) =>debugPrint("Error $err"));
   }
 }
