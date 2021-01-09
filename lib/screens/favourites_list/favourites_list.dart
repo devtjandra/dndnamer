@@ -21,7 +21,7 @@ class FavouritesList extends ConsumerWidget {
   Widget _list(ScopedReader watch) {
     var items = watch(favouritesList.state);
     return Padding(
-        padding: const EdgeInsets.only(top: 65),
+        padding: const EdgeInsets.only(top: 12),
         child: items != null && items.isNotEmpty
             ? ListView.builder(
                 padding: const EdgeInsets.only(

@@ -1,5 +1,6 @@
 import 'package:dndnamer/screens/name_generator/name_generator.dart';
-import 'package:dndnamer/services/api_client.dart';import 'package:dndnamer/models/person.dart';
+import 'package:dndnamer/services/api_client.dart';
+import 'package:dndnamer/models/person.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:hive/hive.dart';
@@ -51,21 +52,34 @@ class FavouritesListNotifier extends StateNotifier<List<Person>> {
     Hive
       ..init(dir.path)
       ..registerAdapter(PersonAdapter());
+    refreshPeople();
   }
 
-  void save(String name, String description) {
-    Hive.openBox('people').then((value) {
-      if (!value.isOpen) return;
-      Hive.box('people').add(Person(name, description)).then((value) => refreshPeople());
-    });
+  void save(String name, String description) async {
+    final hive = await Hive.openBox('people');
+    if (!hive.isOpen) return;
+    await Hive.box('people').put(name, Person(name, description));
+    await Hive.close();
+    refreshPeople();
   }
 
-  void refreshPeople() {
-    Hive.openBox('people').then((value) {
-      final values = Hive.box('people').values;
-      List<Person> newPeople = List();
-      values.forEach((element) => newPeople.add(element));
-      state = newPeople;
-    }).catchError((err) =>debugPrint("Error $err"));
+  void delete(String name) async {
+    final hive = await Hive.openBox('people');
+    if (!hive.isOpen) return;
+    await Hive.box('people').delete(name);
+    await Hive.close();
+    refreshPeople();
+  }
+
+  void refreshPeople() async {
+    final hive = await Hive.openBox('people');
+    if (!hive.isOpen) return;
+
+    final values = Hive.box('people').values;
+    List<Person> newPeople = List();
+    values.forEach((element) => newPeople.add(element));
+    state = newPeople;
+
+    await Hive.close();
   }
 }
