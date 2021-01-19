@@ -33,7 +33,6 @@ class NameGenerator extends ConsumerWidget {
     });
 
     return SlidingUpPanel(
-        defaultPanelState: PanelState.CLOSED,
         minHeight: 0.0,
         maxHeight: 300.0,
         panel: const RaceList(),
@@ -62,7 +61,7 @@ class NameGenerator extends ConsumerWidget {
                       ),
                     ),
                   ),
-                  watch(_isEmpty) ? _empty() : _list(list),
+                  if (watch(_isEmpty)) _empty() else _list(list),
                   shadow(),
                   if (watch(isWaiting).state) _loading()
                 ],
@@ -75,8 +74,8 @@ class NameGenerator extends ConsumerWidget {
 
   Widget _loading() {
     return const Padding(
-      padding: const EdgeInsets.all(25.0),
-      child: const ProgressBar(),
+      padding: EdgeInsets.all(25.0),
+      child: ProgressBar(),
     );
   }
 

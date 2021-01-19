@@ -19,7 +19,7 @@ class RaceList extends ConsumerWidget {
               padding: const EdgeInsets.all(12.0),
               child: const Text(
                 "SELECT RACE",
-                style: const TextStyle(
+                style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.black54,
                     fontSize: 12.0),

@@ -1,2 +1,2 @@
-export './strings.dart';
 export './routes.dart';
+export './strings.dart';

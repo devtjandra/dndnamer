@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         },
         theme: ThemeData(
             fontFamily: "Montserrat",
-            colorScheme: ColorScheme.light(primary: Color(0xffbf283a))),
+            colorScheme: const ColorScheme.light(primary: Color(0xffbf283a))),
         initialRoute: Routes.nameGenerator);
   }
 }

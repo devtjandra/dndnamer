@@ -9,8 +9,8 @@ final favouritesList = StateNotifierProvider<FavouritesListNotifier>(
 class DialogService {
   static void showFavouritesDialog(
       BuildContext context, String prepopulatedName) {
-    TextEditingController _nameController = TextEditingController();
-    TextEditingController _descriptionController = TextEditingController();
+    final _nameController = TextEditingController();
+    final _descriptionController = TextEditingController();
 
     if (prepopulatedName != null) _nameController.text = prepopulatedName;
 
@@ -22,16 +22,14 @@ class DialogService {
             height: 300,
             padding: const EdgeInsets.all(16.0),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Align(
                     alignment: Alignment.topLeft,
                     child: IconButton(
-                        icon: Icon(Icons.close),
+                        icon: const Icon(Icons.close),
                         onPressed: () => Navigator.pop(dialogContext))),
                 TextField(
                   controller: _nameController,
-                  maxLines: 1,
                   style: const TextStyle(fontWeight: FontWeight.bold),
                   decoration: const InputDecoration.collapsed(
                       hintText: "Name",
@@ -63,18 +61,18 @@ class DialogService {
                       SnackBar snackBar;
 
                       if (exists) {
-                        snackBar = SnackBar(
+                        snackBar = const SnackBar(
                             content: Text("This name is already saved!"));
                       } else {
                         context.read(favouritesList).save(
                             _nameController.text, _descriptionController.text);
                         Navigator.pop(dialogContext);
-                        snackBar = SnackBar(content: Text("Saved!"));
+                        snackBar = const SnackBar(content: Text("Saved!"));
                       }
 
                       Scaffold.of(context).showSnackBar(snackBar);
                     },
-                    child: Text("SAVE TO FAVOURITES"),
+                    child: const Text("SAVE TO FAVOURITES"),
                   ))
                 ])
               ],

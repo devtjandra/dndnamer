@@ -15,23 +15,14 @@ class PersonItem extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
       shape: const RoundedRectangleBorder(
-          borderRadius: const BorderRadius.all(Radius.circular(0.0))),
+          borderRadius: BorderRadius.all(Radius.circular(12.0))),
       elevation: 3.0,
       child: Slidable(
         controller: _controller,
-        closeOnScroll: true,
-        direction: Axis.horizontal,
         actionPane: const SlidableStrechActionPane(),
-        child: Container(
-          alignment: Alignment.centerLeft,
-          padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 24.0),
-          child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [Text(value.name), Text(value.description)]),
-        ),
         secondaryActions: [
           IconSlideAction(
-            color: Colors.black87,
+            color: const Color(0xffbf283a),
             icon: Icons.delete,
             onTap: () {
               _controller.activeState.close();
@@ -40,6 +31,13 @@ class PersonItem extends StatelessWidget {
             closeOnTap: false,
           ),
         ],
+        child: Container(
+          alignment: Alignment.centerLeft,
+          padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 24.0),
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [Text(value.name), Text(value.description)]),
+        ),
       ),
     );
   }

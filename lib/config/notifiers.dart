@@ -9,22 +9,22 @@ import 'package:path_provider/path_provider.dart';
 class NameGeneratorListNotifier extends StateNotifier<List<String>> {
   final ProviderReference ref;
 
-  NameGeneratorListNotifier(this.ref) : super(List()) {
+  NameGeneratorListNotifier(this.ref) : super([]) {
     Future.delayed(Duration.zero, () => getItems());
   }
 
   void restart() {
-    state = List();
+    state = [];
     getItems();
   }
 
   void addItems(List<String> items) {
-    var list = state;
+    final list = state;
     list.addAll(items);
     state = list;
   }
 
-  void getItems() async {
+  Future<void> getItems() async {
     if (ref.read(isWaiting).state) return;
 
     ref.read(isWaiting).state = true;
@@ -43,19 +43,19 @@ class NameGeneratorListNotifier extends StateNotifier<List<String>> {
 class FavouritesListNotifier extends StateNotifier<List<Person>> {
   final ProviderReference ref;
 
-  FavouritesListNotifier(this.ref) : super(List()) {
+  FavouritesListNotifier(this.ref) : super([]) {
     _init();
   }
 
-  void _init() async {
-    var dir = await getApplicationDocumentsDirectory();
+  Future<void> _init() async {
+    final dir = await getApplicationDocumentsDirectory();
     Hive
       ..init(dir.path)
       ..registerAdapter(PersonAdapter());
     refreshPeople();
   }
 
-  void save(String name, String description) async {
+  Future<void> save(String name, String description) async {
     final hive = await Hive.openBox('people');
     if (!hive.isOpen) return;
     await Hive.box('people').put(name, Person(name, description));
@@ -71,7 +71,7 @@ class FavouritesListNotifier extends StateNotifier<List<Person>> {
     return person != null;
   }
 
-  void delete(String name) async {
+  Future<void> delete(String name) async {
     final hive = await Hive.openBox('people');
     if (!hive.isOpen) return;
     await Hive.box('people').delete(name);
@@ -79,17 +79,14 @@ class FavouritesListNotifier extends StateNotifier<List<Person>> {
     refreshPeople();
   }
 
-  void refreshPeople() async {
+  Future<void> refreshPeople() async {
     final hive = await Hive.openBox('people');
     if (!hive.isOpen) return;
 
     final values = Hive.box('people').values;
-    List<Person> newPeople = List();
-    values.forEach((element) => newPeople.add(element));
-    state = newPeople;
+    final peopleValues = values.map((e) => e as Person).toList();
+    state = peopleValues;
 
     await Hive.close();
   }
 }
-
-

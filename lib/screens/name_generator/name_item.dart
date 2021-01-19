@@ -13,17 +13,11 @@ class NameItem extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
       shape: const RoundedRectangleBorder(
-          borderRadius: const BorderRadius.all(Radius.circular(0.0))),
+          borderRadius: BorderRadius.all(Radius.circular(12.0))),
       elevation: 3.0,
       child: Slidable(
         controller: _controller,
-        closeOnScroll: true,
-        direction: Axis.horizontal,
-        actionPane: SlidableStrechActionPane(),
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 24.0),
-          child: Text(value),
-        ),
+        actionPane: const SlidableStrechActionPane(),
         secondaryActions: [
           IconSlideAction(
             color: Colors.black87,
@@ -35,6 +29,10 @@ class NameItem extends StatelessWidget {
             closeOnTap: false,
           ),
         ],
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 24.0),
+          child: Text(value),
+        ),
       ),
     );
   }

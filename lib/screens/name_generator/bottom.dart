@@ -38,7 +38,7 @@ class Bottom extends ConsumerWidget {
       Expanded(
           child: ElevatedButton(
         onPressed: () => context.read(nameGeneratorList).restart(),
-        child: Text("Go"),
+        child: const Text("Go"),
       )),
       horizontalSpace(),
       ElevatedButton(

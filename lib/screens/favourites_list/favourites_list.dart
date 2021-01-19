@@ -10,7 +10,7 @@ class FavouritesList extends ConsumerWidget {
         child: Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black87,
-        title: Text("Saved"),
+        title: const Text("Saved"),
       ),
       body: Container(
         child: _list(watch),
@@ -19,7 +19,7 @@ class FavouritesList extends ConsumerWidget {
   }
 
   Widget _list(ScopedReader watch) {
-    var items = watch(favouritesList.state);
+    final items = watch(favouritesList.state);
     return Padding(
         padding: const EdgeInsets.only(top: 12),
         child: items != null && items.isNotEmpty
