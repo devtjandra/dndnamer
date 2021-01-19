@@ -10,5 +10,11 @@ class Person extends HiveObject {
   @HiveField(1)
   String description;
 
+  @HiveField(2)
+  int priority;
+
+  @HiveField(3)
+  String category;
+
   Person(this.name, this.description);
 }

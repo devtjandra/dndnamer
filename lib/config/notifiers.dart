@@ -44,7 +44,7 @@ class FavouritesListNotifier extends StateNotifier<List<Person>> {
   final ProviderReference ref;
 
   FavouritesListNotifier(this.ref) : super(List()) {
-    Future.delayed(Duration.zero, () => _init());
+    _init();
   }
 
   void _init() async {
@@ -61,6 +61,14 @@ class FavouritesListNotifier extends StateNotifier<List<Person>> {
     await Hive.box('people').put(name, Person(name, description));
     await Hive.close();
     refreshPeople();
+  }
+
+  Future<bool> doesPersonExist(String name) async {
+    final hive = await Hive.openBox('people');
+    if (!hive.isOpen) return false;
+    final person = await Hive.box('people').get(name);
+    await Hive.close();
+    return person != null;
   }
 
   void delete(String name) async {
@@ -83,3 +91,5 @@ class FavouritesListNotifier extends StateNotifier<List<Person>> {
     await Hive.close();
   }
 }
+
+

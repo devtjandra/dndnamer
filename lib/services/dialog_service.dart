@@ -56,12 +56,23 @@ class DialogService {
                 Row(children: [
                   Expanded(
                       child: ElevatedButton(
-                    onPressed: () {
-                      debugPrint(
-                          "Saving ${_nameController.text}, desc ${_descriptionController.text}");
-                      context.read(favouritesList).save(
-                          _nameController.text, _descriptionController.text);
-                      Navigator.pop(dialogContext);
+                    onPressed: () async {
+                      final exists = await context
+                          .read(favouritesList)
+                          .doesPersonExist(_nameController.text);
+                      SnackBar snackBar;
+
+                      if (exists) {
+                        snackBar = SnackBar(
+                            content: Text("This name is already saved!"));
+                      } else {
+                        context.read(favouritesList).save(
+                            _nameController.text, _descriptionController.text);
+                        Navigator.pop(dialogContext);
+                        snackBar = SnackBar(content: Text("Saved!"));
+                      }
+
+                      Scaffold.of(context).showSnackBar(snackBar);
                     },
                     child: Text("SAVE TO FAVOURITES"),
                   ))
