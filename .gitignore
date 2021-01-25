@@ -8,6 +8,7 @@
 .buildlog/
 .history
 .svn/
+.Pods/
 
 # IntelliJ related
 *.iml
@@ -41,3 +42,4 @@ app.*.symbols
 app.*.map.json
 google-services.json
 GoogleService-Info.plist
+*.apk
