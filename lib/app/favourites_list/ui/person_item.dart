@@ -34,9 +34,11 @@ class PersonItem extends StatelessWidget {
         child: Container(
           alignment: Alignment.centerLeft,
           padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 24.0),
-          child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [Text(value.name), Text(value.description)]),
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text(value.name, style: const TextStyle(fontWeight: FontWeight.bold)),
+            Text(value.description)
+          ]),
         ),
       ),
     );

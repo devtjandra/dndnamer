@@ -1,7 +1,7 @@
+import 'package:dndnamer/app/name_generator/name_generator.dart';
 import 'package:dndnamer/config/types.dart';
 import 'package:dndnamer/widgets/horizontal_line.dart';
 import 'package:flutter/material.dart';
-import 'package:dndnamer/screens/name_generator/name_generator.dart';
 import 'package:flutter_riverpod/all.dart';
 
 class RaceList extends ConsumerWidget {
@@ -31,7 +31,7 @@ class RaceList extends ConsumerWidget {
               child: IconButton(
                   icon: const Icon(Icons.close),
                   color: Colors.black38,
-                  onPressed: () => context.read(panelController).close()),
+                  onPressed: () => context.read(nameGeneratorPanelController).close()),
             )
           ],
         ),
@@ -47,11 +47,11 @@ class RaceList extends ConsumerWidget {
   }
 
   void _selectRace(String value, BuildContext context) {
-    context.read(panelController).close();
+    context.read(nameGeneratorPanelController).close();
 
-    if (context.read(race).state != value) {
-      context.read(race).state = value;
-      context.read(nameGeneratorList).restart();
+    if (context.read(nameGeneratorRace).state != value) {
+      context.read(nameGeneratorRace).state = value;
+      context.read(nameGeneratorViewModel).restart();
     }
   }
 

@@ -1,34 +1,33 @@
-import 'package:dndnamer/config/notifiers.dart';
+import 'package:dndnamer/app/name_generator/name_generator_view_model.dart';
+import 'package:dndnamer/app/name_generator/view/bottom.dart';
+import 'package:dndnamer/app/name_generator/view/name_item.dart';
+import 'package:dndnamer/app/name_generator/view/race_list.dart';
 import 'package:dndnamer/config/types.dart';
-import 'package:dndnamer/screens/name_generator/bottom.dart';
-import 'package:dndnamer/screens/name_generator/name_item.dart';
-import 'package:dndnamer/screens/name_generator/race_list.dart';
 import 'package:dndnamer/widgets/progress_bar.dart';
 import 'package:dndnamer/widgets/spaces.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
-final isWaiting = StateProvider<bool>((ref) => false);
-final race = StateProvider<String>((ref) => races[0]);
+final nameGeneratorViewModel = StateNotifierProvider<NameGeneratorViewModel>(
+    (ref) => NameGeneratorViewModel(ref));
 
-final nameGeneratorList = StateNotifierProvider<NameGeneratorListNotifier>(
-    (ref) => NameGeneratorListNotifier(ref));
-final panelController = Provider<PanelController>((ref) => PanelController());
-
-final _isEmpty =
-    Provider<bool>((ref) => ref.watch(nameGeneratorList.state).isEmpty);
+final nameGeneratorPanelController = Provider<PanelController>((ref) => PanelController());
+final isWaitingNameGeneration = StateProvider<bool>((ref) => false);
+final isNameGeneratorEmpty =
+    Provider<bool>((ref) => ref.watch(nameGeneratorViewModel.state).isEmpty);
+final nameGeneratorRace = StateProvider<String>((ref) => races[0]);
 
 class NameGenerator extends ConsumerWidget {
   final _controller = ScrollController();
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final list = watch(nameGeneratorList.state);
+    final list = watch(nameGeneratorViewModel.state);
 
     _controller.addListener(() {
       if (_controller.position.atEdge && _controller.position.pixels != 0) {
-        context.read(nameGeneratorList).getItems();
+        context.read(nameGeneratorViewModel).getItems();
       }
     });
 
@@ -36,7 +35,7 @@ class NameGenerator extends ConsumerWidget {
         minHeight: 0.0,
         maxHeight: 300.0,
         panel: const RaceList(),
-        controller: watch(panelController),
+        controller: watch(nameGeneratorPanelController),
         body: SafeArea(
             child: Scaffold(
           body: Column(children: [
@@ -61,9 +60,9 @@ class NameGenerator extends ConsumerWidget {
                       ),
                     ),
                   ),
-                  if (watch(_isEmpty)) _empty() else _list(list),
+                  if (watch(isNameGeneratorEmpty)) _empty() else _list(list),
                   shadow(),
-                  if (watch(isWaiting).state) _loading()
+                  if (watch(isWaitingNameGeneration).state) _loading()
                 ],
               ),
             ),

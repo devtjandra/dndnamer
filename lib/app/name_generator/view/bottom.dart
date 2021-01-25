@@ -1,7 +1,7 @@
+import 'package:dndnamer/app/name_generator/name_generator.dart';
 import 'package:dndnamer/values/values.dart';
 import 'package:dndnamer/widgets/spaces.dart';
 import 'package:flutter/material.dart';
-import 'package:dndnamer/screens/name_generator/name_generator.dart';
 import 'package:flutter_riverpod/all.dart';
 
 class Bottom extends ConsumerWidget {
@@ -20,8 +20,8 @@ class Bottom extends ConsumerWidget {
                 children: [
                   Expanded(
                     child: OutlineButton(
-                        onPressed: () => context.read(panelController).open(),
-                        child: Text(watch(race).state)),
+                        onPressed: () => context.read(nameGeneratorPanelController).open(),
+                        child: Text(watch(nameGeneratorRace).state)),
                   )
                 ],
               ),
@@ -37,7 +37,7 @@ class Bottom extends ConsumerWidget {
     return Row(children: [
       Expanded(
           child: ElevatedButton(
-        onPressed: () => context.read(nameGeneratorList).restart(),
+        onPressed: () => context.read(nameGeneratorViewModel).restart(),
         child: const Text("Go"),
       )),
       horizontalSpace(),
