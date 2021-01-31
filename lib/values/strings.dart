@@ -17,4 +17,9 @@ class Strings {
   // Buttons
   static const createPerson = "Create Person";
   static const createGame = "Create Game";
+
+  // Drawer
+  static const home = "Home";
+  static const games = "Games";
+  static const logOut = "Log Out";
 }

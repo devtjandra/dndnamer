@@ -1,5 +1,6 @@
 import 'package:dndnamer/app/name_generator/logic/name_generator_view_model.dart';
 import 'package:dndnamer/app/name_generator/view/bottom.dart';
+import 'package:dndnamer/app/name_generator/view/home_drawer.dart';
 import 'package:dndnamer/app/name_generator/view/name_item.dart';
 import 'package:dndnamer/app/name_generator/view/race_list.dart';
 import 'package:dndnamer/config/types.dart';
@@ -12,7 +13,8 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 final nameGeneratorViewModel = StateNotifierProvider<NameGeneratorViewModel>(
     (ref) => NameGeneratorViewModel(ref));
 
-final nameGeneratorPanelController = Provider<PanelController>((ref) => PanelController());
+final nameGeneratorPanelController =
+    Provider<PanelController>((ref) => PanelController());
 final isWaitingNameGeneration = StateProvider<bool>((ref) => false);
 final isNameGeneratorEmpty =
     Provider<bool>((ref) => ref.watch(nameGeneratorViewModel.state).isEmpty);
@@ -38,6 +40,16 @@ class NameGenerator extends ConsumerWidget {
         controller: watch(nameGeneratorPanelController),
         body: SafeArea(
             child: Scaffold(
+          appBar: AppBar(
+              elevation: 0,
+              backgroundColor: Colors.black87,
+              title: const Text(
+                "DND NAMER",
+                style: TextStyle(fontSize: 16.0, color: Colors.white),
+              )),
+          drawer: Drawer(
+            child: HomeDrawer(),
+          ),
           body: Column(children: [
             Expanded(
               child: Stack(
@@ -49,16 +61,6 @@ class NameGenerator extends ConsumerWidget {
                         width: double.infinity,
                         height: 170,
                         color: Colors.black87),
-                  ),
-                  Align(
-                    alignment: Alignment.topCenter,
-                    child: Container(
-                      padding: const EdgeInsets.all(30.0),
-                      child: const Text(
-                        "DND NAMER",
-                        style: TextStyle(fontSize: 16.0, color: Colors.white),
-                      ),
-                    ),
                   ),
                   if (watch(isNameGeneratorEmpty)) _empty() else _list(list),
                   shadow(),
@@ -83,13 +85,11 @@ class NameGenerator extends ConsumerWidget {
   }
 
   Widget _list(List<String> items) {
-    return Padding(
-        padding: const EdgeInsets.only(top: 65),
-        child: ListView.builder(
-            controller: _controller,
-            padding: const EdgeInsets.only(
-                left: 8.0, right: 8.0, bottom: 24.0, top: 4.0),
-            itemBuilder: (context, index) => NameItem(items[index]),
-            itemCount: items.length));
+    return ListView.builder(
+        controller: _controller,
+        padding: const EdgeInsets.only(
+            left: 8.0, right: 8.0, bottom: 24.0, top: 4.0),
+        itemBuilder: (context, index) => NameItem(items[index]),
+        itemCount: items.length);
   }
 }

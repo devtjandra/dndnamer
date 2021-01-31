@@ -50,6 +50,10 @@ class LoginViewModel {
   }
 
   void _done(BuildContext context) {
+    ref.read(loginEmailTextController).text = "";
+    ref.read(loginPasswordTextController).text = "";
+    ref.read(loginNameTextController).text = "";
+    ref.read(isLogin).state = true;
     Navigator.of(context).pushReplacementNamed(Routes.nameGenerator);
   }
 }
