@@ -40,10 +40,6 @@ class Bottom extends ConsumerWidget {
         onPressed: () => context.read(nameGeneratorViewModel).restart(),
         child: const Text("Go"),
       )),
-      horizontalSpace(),
-      ElevatedButton(
-          // onPressed: () => Navigator.pushNamed(context, Routes.favouritesList),
-          child: const Icon(Icons.favorite))
     ]);
   }
 }

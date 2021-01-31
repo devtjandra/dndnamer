@@ -1,5 +1,5 @@
+import 'package:dndnamer/app/home/view/home.dart';
 import 'package:dndnamer/app/login/view/login.dart';
-import 'package:dndnamer/app/name_generator/view/name_generator.dart';
 import 'package:dndnamer/app/splash/view/splash.dart';
 import 'package:dndnamer/values/values.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         routes: {
           Routes.splash: (_) => Splash(),
           Routes.login: (_) => Login(),
-          Routes.nameGenerator: (_) => NameGenerator()
+          Routes.home: (_) => Home()
         },
         theme: ThemeData(
             fontFamily: "Montserrat",

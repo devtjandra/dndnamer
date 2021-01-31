@@ -12,7 +12,7 @@ class SplashViewModel {
   void initialise(BuildContext context) {
     Future.delayed(const Duration(milliseconds: 200), () async {
       final isLoggedIn = await client.loginCheck();
-      final route = isLoggedIn ? Routes.nameGenerator : Routes.login;
+      final route = isLoggedIn ? Routes.home : Routes.login;
       Navigator.of(context).pushReplacementNamed(route);
     });
   }

@@ -54,6 +54,6 @@ class LoginViewModel {
     ref.read(loginPasswordTextController).text = "";
     ref.read(loginNameTextController).text = "";
     ref.read(isLogin).state = true;
-    Navigator.of(context).pushReplacementNamed(Routes.nameGenerator);
+    Navigator.of(context).pushReplacementNamed(Routes.home);
   }
 }

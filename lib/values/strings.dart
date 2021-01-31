@@ -13,6 +13,7 @@ class Strings {
 
   // Titles
   static const personCreatorTitle = "Add a New Person";
+  static const gameListTitle = "My Games";
 
   // Buttons
   static const createPerson = "Create Person";
