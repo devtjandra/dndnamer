@@ -1,4 +1,4 @@
-import 'package:dndnamer/app/home/client/home_client.dart';
+import 'package:dndnamer/app/home/client/home_drawer_client.dart';
 import 'package:dndnamer/app/home/view/home.dart';
 import 'package:dndnamer/app/home/view/home_drawer.dart';
 import 'package:dndnamer/values/values.dart';
@@ -28,5 +28,10 @@ class HomeDrawerViewModel {
   Future<void> games(BuildContext context) async {
     Navigator.of(context).pop();
     context.read(currentHomeScreen).state = Routes.gameList;
+  }
+
+  Future<String> getName() async {
+    final name = await client.getUserName();
+    return name;
   }
 }
