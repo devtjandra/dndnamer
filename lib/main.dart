@@ -1,10 +1,11 @@
-import 'package:dndnamer/app/favourites_list/ui/favourites_list.dart';
-import 'package:dndnamer/app/name_generator/name_generator.dart';
+import 'package:dndnamer/app/login/view/login.dart';
+import 'package:dndnamer/app/name_generator/view/name_generator.dart';
+import 'package:dndnamer/app/splash/view/splash.dart';
 import 'package:dndnamer/values/values.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/all.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(ProviderScope(child: MyApp()));
 }
@@ -16,8 +17,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'DnD Namer',
         routes: {
-          Routes.nameGenerator: (_) => NameGenerator(),
-          Routes.favouritesList: (_) => FavouritesList()
+          Routes.splash: (_) => Splash(),
+          Routes.login: (_) => Login(),
+          Routes.nameGenerator: (_) => NameGenerator()
         },
         theme: ThemeData(
             fontFamily: "Montserrat",

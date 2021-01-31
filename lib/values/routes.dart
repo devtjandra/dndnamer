@@ -1,4 +1,6 @@
 class Routes {
-  static const nameGenerator = "/";
-  static const favouritesList = "/favouritesList";
+  static const splash = "/";
+  static const login = "/login";
+  static const nameGenerator = "/nameGenerator";
+  static const personCreator = "/personCreator";
 }

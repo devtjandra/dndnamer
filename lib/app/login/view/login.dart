@@ -1,5 +1,6 @@
-import 'package:dndnamer/app/login/login_view_model.dart';
+import 'package:dndnamer/app/login/logic/login_view_model.dart';
 import 'package:dndnamer/values/values.dart';
+import 'package:dndnamer/widgets/progress_bar.dart';
 import 'package:dndnamer/widgets/spaces.dart';
 import 'package:dndnamer/widgets/switcher.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,8 @@ final isLogin = StateProvider<bool>((ref) => false);
 final loginEmailTextController =
     Provider<TextEditingController>((ref) => TextEditingController());
 final loginPasswordTextController =
+    Provider<TextEditingController>((ref) => TextEditingController());
+final loginNameTextController =
     Provider<TextEditingController>((ref) => TextEditingController());
 
 final _description = Provider<String>((ref) => ref.watch(isLogin).state
@@ -43,6 +46,21 @@ class Login extends ConsumerWidget {
               obscureText: true,
               decoration: const InputDecoration.collapsed(
                   hintText: Strings.email, hintStyle: Styles.hintText)),
+          verticalSpace(),
+          TextField(
+              controller: watch(loginNameTextController),
+              obscureText: true,
+              decoration: const InputDecoration.collapsed(
+                  hintText: Strings.name, hintStyle: Styles.hintText)),
+          if (watch(isWaitingLogin).state) ...[
+            verticalSpace(),
+            const ProgressBar()
+          ],
+          verticalSpace(),
+          OutlineButton(
+              onPressed: () => context.read(loginViewModel).goClick(context),
+              child:
+                  Text(watch(isLogin).state ? Strings.login : Strings.register))
         ],
       )),
     );

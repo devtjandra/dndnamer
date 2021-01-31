@@ -1,4 +1,4 @@
-import 'package:dndnamer/app/name_generator/name_generator.dart';
+import 'package:dndnamer/app/name_generator/view/name_generator.dart';
 import 'package:dndnamer/config/types.dart';
 import 'package:dndnamer/widgets/horizontal_line.dart';
 import 'package:flutter/material.dart';

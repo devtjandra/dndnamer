@@ -1,4 +1,4 @@
-import 'package:dndnamer/app/name_generator/name_generator.dart';
+import 'package:dndnamer/app/name_generator/view/name_generator.dart';
 import 'package:dndnamer/values/values.dart';
 import 'package:dndnamer/widgets/spaces.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +42,7 @@ class Bottom extends ConsumerWidget {
       )),
       horizontalSpace(),
       ElevatedButton(
-          onPressed: () => Navigator.pushNamed(context, Routes.favouritesList),
+          // onPressed: () => Navigator.pushNamed(context, Routes.favouritesList),
           child: const Icon(Icons.favorite))
     ]);
   }

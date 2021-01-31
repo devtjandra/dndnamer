@@ -1,20 +1,24 @@
-import 'package:hive/hive.dart';
+import 'package:flutter/material.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 part 'person.g.dart';
 
-@HiveType(typeId: 0)
-class Person extends HiveObject {
-  @HiveField(0)
-  String name;
+@JsonSerializable(explicitToJson: false)
+class Person {
+  final String uuid;
+  final String gameUuid;
+  final String name;
+  final int importance;
+  final String description;
 
-  @HiveField(1)
-  String description;
+  Person({
+    @required this.uuid,
+    @required this.gameUuid,
+    @required this.name,
+    @required this.importance,
+    this.description
+  });
 
-  @HiveField(2)
-  int priority;
-
-  @HiveField(3)
-  String category;
-
-  Person(this.name, this.description);
+  factory Person.fromJson(Map<String, dynamic> json) => _$PersonFromJson(json);
+  Map<String, dynamic> toJson() => _$PersonToJson(this);
 }

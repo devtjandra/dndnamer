@@ -1,4 +1,5 @@
-import 'package:dndnamer/services/dialog_service.dart';
+import 'package:dndnamer/app/person_creator/view/person_creator.dart';
+import 'package:dndnamer/values/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
@@ -18,22 +19,26 @@ class NameItem extends StatelessWidget {
       child: Slidable(
         controller: _controller,
         actionPane: const SlidableStrechActionPane(),
-        secondaryActions: [
-          IconSlideAction(
-            color: Colors.black87,
-            icon: Icons.favorite,
-            onTap: () {
-              _controller.activeState.close();
-              DialogService.showFavouritesDialog(context, value);
-            },
-            closeOnTap: false,
-          ),
-        ],
+        secondaryActions: [_favouriteButton(context)],
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 24.0),
           child: Text(value),
         ),
       ),
+    );
+  }
+
+  Widget _favouriteButton(BuildContext context) {
+    return IconSlideAction(
+      color: Colors.black87,
+      icon: Icons.favorite,
+      onTap: () {
+        _controller.activeState.close();
+
+        Navigator.pushNamed(context, Routes.personCreator,
+            arguments: PersonCreatorArguments(name: value));
+      },
+      closeOnTap: false,
     );
   }
 }
