@@ -9,7 +9,7 @@ import 'package:flutter_riverpod/all.dart';
 final loginViewModel = Provider<LoginViewModel>((ref) => LoginViewModel(ref));
 
 final isWaitingLogin = StateProvider<bool>((ref) => false);
-final isLogin = StateProvider<bool>((ref) => false);
+final isLogin = StateProvider<bool>((ref) => true);
 final loginEmailTextController =
     Provider<TextEditingController>((ref) => TextEditingController());
 final loginPasswordTextController =
@@ -24,45 +24,51 @@ final _description = Provider<String>((ref) => ref.watch(isLogin).state
 class Login extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    return Scaffold(
-      body: Center(
+    return SafeArea(
+        child: Scaffold(
+      body: Container(
+          alignment: Alignment.center,
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Column(
-        children: [
-          Switcher(
-            options: const [Strings.login, Strings.registration],
-            selectedIndex: watch(isLogin).state ? 0 : 1,
-            onItemSelected: (index) => context.read(isLogin).state = index == 0,
-          ),
-          verticalSpace(),
-          Text(watch(_description), style: Styles.descriptionText),
-          verticalSpace(),
-          TextField(
-              controller: watch(loginEmailTextController),
-              decoration: const InputDecoration.collapsed(
-                  hintText: Strings.email, hintStyle: Styles.hintText)),
-          verticalSpace(),
-          TextField(
-              controller: watch(loginPasswordTextController),
-              obscureText: true,
-              decoration: const InputDecoration.collapsed(
-                  hintText: Strings.email, hintStyle: Styles.hintText)),
-          verticalSpace(),
-          TextField(
-              controller: watch(loginNameTextController),
-              obscureText: true,
-              decoration: const InputDecoration.collapsed(
-                  hintText: Strings.name, hintStyle: Styles.hintText)),
-          if (watch(isWaitingLogin).state) ...[
-            verticalSpace(),
-            const ProgressBar()
-          ],
-          verticalSpace(),
-          OutlineButton(
-              onPressed: () => context.read(loginViewModel).goClick(context),
-              child:
-                  Text(watch(isLogin).state ? Strings.login : Strings.register))
-        ],
-      )),
-    );
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Switcher(
+                options: const [Strings.login, Strings.registration],
+                selectedIndex: watch(isLogin).state ? 0 : 1,
+                onItemSelected: (index) =>
+                    context.read(isLogin).state = index == 0,
+              ),
+              verticalSpace(),
+              Text(watch(_description), style: Styles.descriptionText),
+              verticalSpace(),
+              TextField(
+                  controller: watch(loginEmailTextController),
+                  decoration: const InputDecoration.collapsed(
+                      hintText: Strings.email, hintStyle: Styles.hintText)),
+              verticalSpace(),
+              TextField(
+                  controller: watch(loginPasswordTextController),
+                  obscureText: true,
+                  decoration: const InputDecoration.collapsed(
+                      hintText: Strings.password, hintStyle: Styles.hintText)),
+              verticalSpace(),
+              if (!watch(isLogin).state)
+                TextField(
+                    controller: watch(loginNameTextController),
+                    decoration: const InputDecoration.collapsed(
+                        hintText: Strings.name, hintStyle: Styles.hintText)),
+              if (watch(isWaitingLogin).state) ...[
+                verticalSpace(),
+                const ProgressBar()
+              ],
+              verticalSpace(),
+              OutlineButton(
+                  onPressed: () =>
+                      context.read(loginViewModel).goClick(context),
+                  child: Text(
+                      watch(isLogin).state ? Strings.login : Strings.register))
+            ],
+          )),
+    ));
   }
 }

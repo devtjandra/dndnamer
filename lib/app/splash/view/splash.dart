@@ -12,12 +12,15 @@ class Splash extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     watch(_viewModel).initialise(context);
 
-    return Scaffold(
-      body: Column(
+    return SafeArea(
+        child: Scaffold(
+            body: Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: const [
           Text(Strings.title, style: Styles.titleText),
         ],
       ),
-    );
+    )));
   }
 }

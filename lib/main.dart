@@ -24,6 +24,6 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             fontFamily: "Montserrat",
             colorScheme: const ColorScheme.light(primary: Color(0xffbf283a))),
-        initialRoute: Routes.nameGenerator);
+        initialRoute: Routes.splash);
   }
 }
