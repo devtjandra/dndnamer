@@ -1,16 +1,15 @@
-# dndnamer
+# DnD Namer
 
-A new Flutter project.
+Are you a Dungeons & Dragons DM? Are you sick and tired of your players asking you, "So what's his name?" and you don't have an answer? Well now you can whip one up in a jiffy!
 
-## Getting Started
+DnD Namer is a little helpful tool to help randomise fantasy names, whether it's for your DnD NPCs or any other game where you're tired of spending hours (or at least 10+ minutes) coming up with the perfect name for your character.
 
-This project is a starting point for a Flutter application.
+API used: https://donjon.bin.sh/fantasy/name/
 
-A few resources to get you started if this is your first Flutter project:
+## Getting a little more technical
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+This project is a Flutter app meant to learn Riverpod, an interesting library I want to try out.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## When will it finish?
+
+Probably never.
