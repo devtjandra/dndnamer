@@ -19,7 +19,7 @@ class LoginClient {
     await FirebaseFirestore.instance
         .collection("accounts")
         .doc(uid)
-        .set({"name": name, "currentGame": "", "games": {}});
+        .set({"name": name});
     return;
   }
 }
