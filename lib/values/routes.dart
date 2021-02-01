@@ -5,4 +5,5 @@ class Routes {
   static const personCreator = "/personCreator";
   static const gameList = "/gameList";
   static const home = "/home";
+  static const gameCreator = "/gameCreator";
 }

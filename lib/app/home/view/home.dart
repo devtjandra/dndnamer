@@ -28,13 +28,13 @@ class Home extends ConsumerWidget {
   String _title(ScopedReader watch) {
     switch (watch(currentHomeScreen).state) {
       case Routes.nameGenerator:
-        return Strings.title;
+        return Strings.appTitle;
 
       case Routes.gameList:
         return Strings.gameListTitle;
 
       default:
-        return Strings.title;
+        return Strings.appTitle;
     }
   }
 

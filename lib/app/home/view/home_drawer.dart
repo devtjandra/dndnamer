@@ -18,7 +18,7 @@ class HomeDrawer extends ConsumerWidget {
       DrawerHeader(
         // decoration: BoxDecoration(color: Colors.black87),
         child: Text(
-          "Welcome, ${watch(_userName).data.value}!",
+          "Welcome, ${watch(_userName).data?.value ?? ""}!",
           // style: TextStyle(color: Colors.white),
         ),
       ),

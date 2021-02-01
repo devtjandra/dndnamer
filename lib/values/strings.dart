@@ -1,5 +1,5 @@
 class Strings {
-  static const title = "DnD Namer";
+  static const appTitle = "DnD Namer";
   static const login = "Login";
   static const email = "Email";
   static const name = "Name";
@@ -11,8 +11,12 @@ class Strings {
 
   static const errorFields = "Fill up all the fields.";
 
+  // Fields
+  static const title = "Title";
+
   // Titles
   static const personCreatorTitle = "Add a New Person";
+  static const gameCreatorTitle = "Add a New Game";
   static const gameListTitle = "My Games";
 
   // Buttons

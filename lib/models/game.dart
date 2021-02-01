@@ -8,13 +8,13 @@ part 'game.g.dart';
 class Game {
   final String uuid;
   final String accountUid;
-  final String name;
+  final String title;
   final String description;
 
   Game(
       {@required this.uuid,
       @required this.accountUid,
-      @required this.name,
+      @required this.title,
       this.description});
 
   factory Game.fromJson(Map<String, dynamic> json) => _$GameFromJson(json);

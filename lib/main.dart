@@ -1,3 +1,4 @@
+import 'package:dndnamer/app/game_creator/view/game_creator.dart';
 import 'package:dndnamer/app/home/view/home.dart';
 import 'package:dndnamer/app/login/view/login.dart';
 import 'package:dndnamer/app/splash/view/splash.dart';
@@ -19,11 +20,13 @@ class MyApp extends StatelessWidget {
         routes: {
           Routes.splash: (_) => Splash(),
           Routes.login: (_) => Login(),
-          Routes.home: (_) => Home()
+          Routes.home: (_) => Home(),
+          Routes.gameCreator: (_) => GameCreator()
         },
         theme: ThemeData(
             fontFamily: "Montserrat",
-            colorScheme: const ColorScheme.light(primary: Color(0xffbf283a))),
+            colorScheme: const ColorScheme.light(
+                primary: Color(0xffbf283a), secondary: Color(0xffbf283a))),
         initialRoute: Routes.splash);
   }
 }

@@ -10,7 +10,7 @@ Game _$GameFromJson(Map<String, dynamic> json) {
   return Game(
     uuid: json['uuid'] as String,
     accountUid: json['accountUid'] as String,
-    name: json['name'] as String,
+    title: json['title'] as String,
     description: json['description'] as String,
   );
 }
@@ -18,6 +18,6 @@ Game _$GameFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$GameToJson(Game instance) => <String, dynamic>{
       'uuid': instance.uuid,
       'accountUid': instance.accountUid,
-      'name': instance.name,
+      'title': instance.title,
       'description': instance.description,
     };
