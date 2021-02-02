@@ -38,6 +38,8 @@ class GameCreatorViewModel {
         .then((value) {
       ref.read(isWaitingGameCreation).state = false;
       ref.read(gameListViewModel).refreshGame();
+      ref.read(gameCreatorTitleTextController).text = "";
+      ref.read(gameCreatorDescriptionTextController).text = "";
       Navigator.of(context).pop();
     }).catchError((error) {
       ref.read(isWaitingGameCreation).state = false;

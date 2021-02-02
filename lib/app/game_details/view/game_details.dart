@@ -20,6 +20,7 @@ final personsList = StateProvider<List<Person>>((ref) => []);
 class GameDetails extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
+    final persons = watch(personsList).state;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.black87,
@@ -49,15 +50,16 @@ class GameDetails extends ConsumerWidget {
             verticalSpace(),
             if (watch(isWaitingPersonsList).state)
               const ProgressBar()
+            else if (persons.isEmpty)
+              const Text(Strings.emptyPersons)
             else
-              ...watch(personsList)
-                  .state
+              ...persons
                   .map((element) => PersonListItem(
                       text: element.name,
                       onTap: () {
                         // TODO: Go to person details screen
                       }))
-                  .toList(),
+                  .toList()
           ]),
         )));
   }

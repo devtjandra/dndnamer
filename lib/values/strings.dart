@@ -31,4 +31,5 @@ class Strings {
 
   static const emptyGame = "No Game Selected";
   static const characters = "Characters";
+  static const emptyPersons = "No characters added yet for this game.";
 }

@@ -39,6 +39,10 @@ class PersonCreatorViewModel {
         .then((value) {
       ref.read(isWaitingPersonCreation).state = false;
       Navigator.of(context).pop();
+      ref.read(personCreatorNameTextController).text = "";
+      ref.read(personCreatorDescriptionTextController).text = "";
+      ref.read(personCreatorGame).state = null;
+      ref.read(personCreatorImportance).state = 0;
     }).catchError((error) {
       ref.read(isWaitingPersonCreation).state = false;
       debugPrint("Error $error");
