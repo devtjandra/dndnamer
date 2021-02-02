@@ -1,4 +1,5 @@
 import 'package:dndnamer/models/game.dart';
+import 'package:dndnamer/widgets/spaces.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
@@ -29,6 +30,7 @@ class GameItem extends StatelessWidget {
                   game.title,
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
+                verticalSpace(height: 6.0),
                 Text(game.description, maxLines: 2),
               ],
             )),
@@ -38,7 +40,7 @@ class GameItem extends StatelessWidget {
 
   Widget _editButton(BuildContext context) {
     return IconSlideAction(
-      color: Colors.black87,
+      color: Colors.blueGrey,
       icon: Icons.edit,
       onTap: () {
         _controller.activeState.close();
@@ -50,7 +52,7 @@ class GameItem extends StatelessWidget {
 
   Widget _deleteButton(BuildContext context) {
     return IconSlideAction(
-      color: Colors.black87,
+      color: Colors.primaries[0],
       icon: Icons.delete,
       onTap: () {
         _controller.activeState.close();

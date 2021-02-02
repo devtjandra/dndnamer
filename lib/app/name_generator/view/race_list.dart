@@ -1,6 +1,7 @@
 import 'package:dndnamer/app/name_generator/view/name_generator.dart';
 import 'package:dndnamer/config/types.dart';
 import 'package:dndnamer/widgets/horizontal_line.dart';
+import 'package:dndnamer/widgets/selector_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/all.dart';
 
@@ -31,7 +32,8 @@ class RaceList extends ConsumerWidget {
               child: IconButton(
                   icon: const Icon(Icons.close),
                   color: Colors.black38,
-                  onPressed: () => context.read(nameGeneratorPanelController).close()),
+                  onPressed: () =>
+                      context.read(nameGeneratorPanelController).close()),
             )
           ],
         ),
@@ -56,17 +58,6 @@ class RaceList extends ConsumerWidget {
   }
 
   Widget _raceWidget(String value, BuildContext context) {
-    return Column(
-      children: [
-        InkWell(
-          onTap: () => _selectRace(value, context),
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Text(value),
-          ),
-        ),
-        HorizontalLine()
-      ],
-    );
+    return SelectorItem(text: value, onTap: () => _selectRace(value, context));
   }
 }

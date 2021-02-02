@@ -1,6 +1,4 @@
 import 'package:dndnamer/app/name_generator/view/name_generator.dart';
-import 'package:dndnamer/values/values.dart';
-import 'package:dndnamer/widgets/spaces.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/all.dart';
 

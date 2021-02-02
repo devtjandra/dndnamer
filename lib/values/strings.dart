@@ -13,6 +13,7 @@ class Strings {
 
   // Fields
   static const title = "Title";
+  static const description = "Description";
 
   // Titles
   static const personCreatorTitle = "Add a New Person";
@@ -27,4 +28,6 @@ class Strings {
   static const home = "Home";
   static const games = "Games";
   static const logOut = "Log Out";
+
+  static const emptyGame = "No Game Selected";
 }

@@ -7,10 +7,10 @@ Widget horizontalSpace() {
   );
 }
 
-Widget verticalSpace() {
-  return const SizedBox(
+Widget verticalSpace({double height}) {
+  return SizedBox(
     width: 1.0,
-    height: 12.0,
+    height: height ?? 12.0,
   );
 }
 
