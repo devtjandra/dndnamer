@@ -1,5 +1,6 @@
 import 'package:dndnamer/app/person_creator/logic/person_creator_view_model.dart';
 import 'package:dndnamer/app/person_creator/view/game_selector_list.dart';
+import 'package:dndnamer/config/types.dart';
 import 'package:dndnamer/models/game.dart';
 import 'package:dndnamer/values/values.dart';
 import 'package:dndnamer/widgets/progress_bar.dart';
@@ -56,7 +57,7 @@ class PersonCreator extends ConsumerWidget {
                   Row(
                     children: [
                       Expanded(
-                          child: OutlineButton(
+                          child: OutlinedButton(
                         onPressed: () =>
                             context.read(personCreatorPanelController).open(),
                         child: Text(watch(personCreatorGame).state?.title ??
@@ -82,6 +83,15 @@ class PersonCreator extends ConsumerWidget {
                         hintText: Strings.description,
                         hintStyle: TextStyle(color: Colors.grey)),
                   ),
+                  Slider(
+                    value: watch(personCreatorImportance).state.toDouble(),
+                    max: 3,
+                    divisions: 3,
+                    label: importance[watch(personCreatorImportance).state],
+                    onChanged: (double value) => context
+                        .read(personCreatorImportance)
+                        .state = value.toInt(),
+                  ),
                   if (watch(isWaitingPersonCreation).state) ...[
                     verticalSpace(),
                     const ProgressBar()
@@ -89,7 +99,7 @@ class PersonCreator extends ConsumerWidget {
                   verticalSpace(),
                   Row(children: [
                     Expanded(
-                        child: OutlinedButton(
+                        child: ElevatedButton(
                       onPressed: _isValid(watch)
                           ? () => context.read(_viewModel).add(context)
                           : () {},

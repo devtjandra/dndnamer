@@ -52,7 +52,7 @@ class GameCreator extends ConsumerWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Row(children: [
                 Expanded(
-                    child: OutlinedButton(
+                    child: ElevatedButton(
                   onPressed: () async {
                     context.read(_viewModel).createClick(context);
                   },

@@ -14,3 +14,10 @@ const races = [
   "Orcish Male",
   "Orcish Female",
 ];
+
+const importance = [
+  "Not Important",
+  "Quite Important",
+  "Very Important",
+  "Extremely Important"
+];
