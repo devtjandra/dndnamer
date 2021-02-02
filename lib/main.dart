@@ -1,4 +1,5 @@
 import 'package:dndnamer/app/game_creator/view/game_creator.dart';
+import 'package:dndnamer/app/game_details/view/game_details.dart';
 import 'package:dndnamer/app/home/view/home.dart';
 import 'package:dndnamer/app/login/view/login.dart';
 import 'package:dndnamer/app/person_creator/view/person_creator.dart';
@@ -23,7 +24,8 @@ class MyApp extends StatelessWidget {
           Routes.login: (_) => Login(),
           Routes.home: (_) => Home(),
           Routes.gameCreator: (_) => GameCreator(),
-          Routes.personCreator: (_) => PersonCreator()
+          Routes.personCreator: (_) => PersonCreator(),
+          Routes.gameDetails: (_) => GameDetails()
         },
         theme: ThemeData(
             fontFamily: "Montserrat",

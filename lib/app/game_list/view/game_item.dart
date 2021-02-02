@@ -6,8 +6,9 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 class GameItem extends StatelessWidget {
   final _controller = SlidableController();
   final Game game;
+  final VoidCallback onTap;
 
-  GameItem(this.game);
+  GameItem({@required this.game, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -20,20 +21,23 @@ class GameItem extends StatelessWidget {
         controller: _controller,
         actionPane: const SlidableStrechActionPane(),
         secondaryActions: [_editButton(context), _deleteButton(context)],
-        child: Container(
-            padding:
-                const EdgeInsets.symmetric(vertical: 24.0, horizontal: 24.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  game.title,
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
-                verticalSpace(height: 6.0),
-                Text(game.description, maxLines: 2),
-              ],
-            )),
+        child: InkWell(
+          onTap: onTap,
+          child: Container(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 24.0, horizontal: 24.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    game.title,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  verticalSpace(height: 6.0),
+                  Text(game.description, maxLines: 2),
+                ],
+              )),
+        ),
       ),
     );
   }

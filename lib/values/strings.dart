@@ -30,4 +30,5 @@ class Strings {
   static const logOut = "Log Out";
 
   static const emptyGame = "No Game Selected";
+  static const characters = "Characters";
 }
