@@ -1,5 +1,6 @@
 import 'package:dndnamer/app/game_creator/client/game_creator_client.dart';
 import 'package:dndnamer/app/game_creator/view/game_creator.dart';
+import 'package:dndnamer/app/game_list/view/game_list.dart';
 import 'package:dndnamer/models/game.dart';
 import 'package:dndnamer/utils/snack.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -36,6 +37,7 @@ class GameCreatorViewModel {
             description: description))
         .then((value) {
       ref.read(isWaitingGameCreation).state = false;
+      ref.read(gameListViewModel).refreshGame();
       Navigator.of(context).pop();
     }).catchError((error) {
       ref.read(isWaitingGameCreation).state = false;

@@ -18,7 +18,7 @@ class Splash extends ConsumerWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: const [
-          Text(Strings.title, style: Styles.titleText),
+          Text(Strings.appTitle, style: Styles.titleText),
         ],
       ),
     )));
