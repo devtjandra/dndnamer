@@ -7,4 +7,5 @@ class Routes {
   static const home = "/home";
   static const gameCreator = "/gameCreator";
   static const gameDetails = "/gameDetails";
+  static const personDetails = "/personDetails";
 }

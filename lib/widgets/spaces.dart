@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-Widget horizontalSpace() {
-  return const SizedBox(
-    width: 12.0,
+Widget horizontalSpace({double width}) {
+  return SizedBox(
+    width: width ?? 12.0,
     height: 1.0,
   );
 }

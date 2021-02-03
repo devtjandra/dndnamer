@@ -1,6 +1,7 @@
 import 'package:dndnamer/app/game_details/logic/game_details_view_model.dart';
 import 'package:dndnamer/app/game_details/view/person_list_item.dart';
 import 'package:dndnamer/app/game_list/view/game_list.dart';
+import 'package:dndnamer/app/person_details/view/person_details.dart';
 import 'package:dndnamer/models/game.dart';
 import 'package:dndnamer/models/person.dart';
 import 'package:dndnamer/values/values.dart';
@@ -73,7 +74,10 @@ class GameDetails extends ConsumerWidget {
                   .map((element) => PersonListItem(
                         person: element,
                         onTap: () {
-                          // TODO: Go to person details screen
+                          context
+                              .read(personDetailsViewModel)
+                              .getPerson(element.uuid);
+                          Navigator.of(context).pushNamed(Routes.personDetails);
                         },
                         onDelete: () => context
                             .read(gameDetailsViewModel)
