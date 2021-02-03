@@ -1,7 +1,6 @@
 import 'package:dndnamer/app/game_list/logic/game_list_view_model.dart';
 import 'package:dndnamer/app/game_details/view/game_details.dart';
 import 'package:dndnamer/app/game_list/view/game_item.dart';
-import 'package:dndnamer/models/game.dart';
 import 'package:dndnamer/values/values.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/all.dart';
@@ -9,6 +8,7 @@ import 'package:flutter_riverpod/all.dart';
 final gameListViewModel =
     StateNotifierProvider<GameListViewModel>((ref) => GameListViewModel(ref));
 final isWaitingGameRefresh = StateProvider<bool>((ref) => false);
+final isWaitingDelete = StateProvider<String>((ref) => null);
 
 class GameList extends ConsumerWidget {
   @override
@@ -34,6 +34,9 @@ class GameList extends ConsumerWidget {
                         .getGame(games[index].uuid);
                     Navigator.of(context).pushNamed(Routes.gameDetails);
                   },
+                  onDelete: () => context
+                      .read(gameListViewModel)
+                      .deleteGame(games[index].uuid),
                 ),
             itemCount: games.length));
   }

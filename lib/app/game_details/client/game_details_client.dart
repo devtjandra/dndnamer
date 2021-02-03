@@ -4,13 +4,12 @@ import 'package:dndnamer/models/person.dart';
 
 class GameDetailsClient {
   Future<Game> getGame(String uuid) async {
-    final values = await FirebaseFirestore.instance
+    final game = await FirebaseFirestore.instance
         .collection("games")
-        .where("uuid", isEqualTo: uuid)
+        .doc(uuid)
         .get();
 
-    final gameValues = values.docs.map((e) => e.data()).toList();
-    return gameValues.map((e) => Game.fromJson(e)).toList()[0];
+    return Game.fromJson(game.data());
   }
 
   Future<List<Person>> getPersons(String gameUuid) async {

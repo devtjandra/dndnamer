@@ -1,4 +1,5 @@
 import 'package:dndnamer/models/game.dart';
+import 'package:dndnamer/widgets/progress_bar.dart';
 import 'package:dndnamer/widgets/spaces.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -7,8 +8,9 @@ class GameItem extends StatelessWidget {
   final _controller = SlidableController();
   final Game game;
   final VoidCallback onTap;
+  final VoidCallback onDelete;
 
-  GameItem({@required this.game, this.onTap});
+  GameItem({@required this.game, this.onTap, this.onDelete});
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +62,7 @@ class GameItem extends StatelessWidget {
       icon: Icons.delete,
       onTap: () {
         _controller.activeState.close();
-        // TODO: Delete
+        onDelete();
       },
       closeOnTap: false,
     );

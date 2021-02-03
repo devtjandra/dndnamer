@@ -27,4 +27,18 @@ class GameListViewModel extends StateNotifier<List<Game>> {
       debugPrint("Error $error");
     });
   }
+
+  Future<void> deleteGame(String uuid) async {
+    if (ref.read(isWaitingDelete).state != null) return;
+
+    ref.read(isWaitingDelete).state = uuid;
+
+    client.deleteGame(uuid).then((value) {
+      refreshGame();
+      ref.read(isWaitingDelete).state = null;
+    }).catchError((error) {
+      ref.read(isWaitingDelete).state = null;
+      debugPrint("Error $error");
+    });
+  }
 }

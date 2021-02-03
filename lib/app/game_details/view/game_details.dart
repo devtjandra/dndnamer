@@ -28,7 +28,7 @@ class GameDetails extends ConsumerWidget {
         ),
         body: SingleChildScrollView(
             child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
           child: Column(children: [
             if (watch(isWaitingGameDetails).state)
               const ProgressBar()
@@ -40,9 +40,9 @@ class GameDetails extends ConsumerWidget {
                   )
                 ],
               ),
-            verticalSpace(),
+            verticalSpace(height: 16.0),
             HorizontalLine(),
-            verticalSpace(),
+            verticalSpace(height: 16.0),
             const Text(
               Strings.characters,
               style: TextStyle(fontWeight: FontWeight.bold),
