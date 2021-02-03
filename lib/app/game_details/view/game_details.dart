@@ -1,6 +1,7 @@
 import 'package:dndnamer/app/game_details/logic/game_details_view_model.dart';
 import 'package:dndnamer/app/game_details/view/person_list_item.dart';
 import 'package:dndnamer/app/game_list/view/game_list.dart';
+import 'package:dndnamer/app/person_creator/view/person_creator.dart';
 import 'package:dndnamer/app/person_details/view/person_details.dart';
 import 'package:dndnamer/models/game.dart';
 import 'package:dndnamer/models/person.dart';
@@ -38,6 +39,22 @@ class GameDetails extends ConsumerWidget {
                   onPressed: () =>
                       context.read(gameDetailsViewModel).deleteGame(context))
           ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            context.read(personCreatorGame).state =
+                context.read(gameDetails).state;
+            context.read(editPersonUuid).state = null;
+            context.read(personCreatorNameTextController).text = "";
+            context.read(personCreatorDescriptionTextController).text = "";
+            context.read(personCreatorImportance).state = 0;
+
+            Navigator.pushNamed(context, Routes.personCreator);
+          },
+          child: const Icon(
+            Icons.add,
+            color: Colors.white,
+          ),
         ),
         body: SingleChildScrollView(
             child: Padding(
@@ -78,6 +95,20 @@ class GameDetails extends ConsumerWidget {
                               .read(personDetailsViewModel)
                               .getPerson(element.uuid);
                           Navigator.of(context).pushNamed(Routes.personDetails);
+                        },
+                        onEdit: () {
+                          context.read(editPersonUuid).state = element.uuid;
+                          context.read(personCreatorGame).state =
+                              context.read(gameDetails).state;
+                          context.read(personCreatorNameTextController).text =
+                              element.name;
+                          context
+                              .read(personCreatorDescriptionTextController)
+                              .text = element.description;
+                          context.read(personCreatorImportance).state =
+                              element.importance;
+
+                          Navigator.pushNamed(context, Routes.personCreator);
                         },
                         onDelete: () => context
                             .read(gameDetailsViewModel)

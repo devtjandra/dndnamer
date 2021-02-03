@@ -6,9 +6,10 @@ class PersonListItem extends StatelessWidget {
   final _controller = SlidableController();
   final VoidCallback onTap;
   final Person person;
+  final VoidCallback onEdit;
   final VoidCallback onDelete;
 
-  PersonListItem({@required this.person, this.onTap, this.onDelete});
+  PersonListItem({@required this.person, this.onTap, this.onEdit, this.onDelete});
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +46,7 @@ class PersonListItem extends StatelessWidget {
       icon: Icons.edit,
       onTap: () {
         _controller.activeState.close();
-        // TODO: Edit
+        if (onEdit != null) onEdit();
       },
       closeOnTap: false,
     );
@@ -57,7 +58,7 @@ class PersonListItem extends StatelessWidget {
       icon: Icons.delete,
       onTap: () {
         _controller.activeState.close();
-        onDelete();
+        if (onDelete != null) onDelete();
       },
       closeOnTap: false,
     );

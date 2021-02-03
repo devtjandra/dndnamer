@@ -21,8 +21,10 @@ class Strings {
   static const gameListTitle = "My Games";
 
   // Buttons
-  static const createPerson = "Create Person";
+  static const createPerson = "Create Character";
+  static const savePerson = "Save Character";
   static const createGame = "Create Game";
+  static const saveGame = "Save Game";
 
   // Drawer
   static const home = "Home";

@@ -1,5 +1,7 @@
+import 'package:dndnamer/app/game_details/view/game_details.dart';
 import 'package:dndnamer/app/person_creator/client/person_creator_client.dart';
 import 'package:dndnamer/app/person_creator/view/person_creator.dart';
+import 'package:dndnamer/app/person_details/view/person_details.dart';
 import 'package:dndnamer/models/person.dart';
 import 'package:dndnamer/utils/snack.dart';
 import 'package:flutter/material.dart';
@@ -28,21 +30,27 @@ class PersonCreatorViewModel {
 
     final uuid = Uuid();
     final personUuid = uuid.v4().toString();
+    final editUuid = ref.read(editPersonUuid).state;
 
     client
         .createPerson(Person(
-            uuid: personUuid,
+            uuid: editUuid ?? personUuid,
             gameUuid: game.uuid,
             name: name,
             importance: importance,
             description: description))
         .then((value) {
       ref.read(isWaitingPersonCreation).state = false;
-      Navigator.of(context).pop();
       ref.read(personCreatorNameTextController).text = "";
       ref.read(personCreatorDescriptionTextController).text = "";
-      ref.read(personCreatorGame).state = null;
       ref.read(personCreatorImportance).state = 0;
+      ref.read(gameDetailsViewModel).getPersons();
+
+      if (editUuid != null) {
+        ref.read(personDetailsViewModel).getPerson(editUuid);
+      }
+
+      Navigator.of(context).pop();
     }).catchError((error) {
       ref.read(isWaitingPersonCreation).state = false;
       debugPrint("Error $error");

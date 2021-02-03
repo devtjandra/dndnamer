@@ -21,28 +21,11 @@ final personCreatorDescriptionTextController =
 final personCreatorImportance = StateProvider<int>((ref) => 0);
 final personCreatorGame = StateProvider<Game>((ref) => null);
 final isWaitingPersonCreation = StateProvider<bool>((ref) => false);
-
-class PersonCreatorArguments {
-  final String name;
-
-  PersonCreatorArguments({@required this.name});
-}
+final editPersonUuid = StateProvider<String>((ref) => null);
 
 class PersonCreator extends ConsumerWidget {
-  bool _initialNameSet = false;
-
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    if (!_initialNameSet) {
-      _initialNameSet = true;
-      final args = ModalRoute.of(context).settings.arguments;
-
-      if (args != null) {
-        final personCreatorArgs = args as PersonCreatorArguments;
-        watch(personCreatorNameTextController).text = personCreatorArgs.name;
-      }
-    }
-
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.black87,
@@ -103,7 +86,9 @@ class PersonCreator extends ConsumerWidget {
                       onPressed: _isValid(watch)
                           ? () => context.read(_viewModel).add(context)
                           : () {},
-                      child: const Text(Strings.createPerson),
+                      child: Text(watch(editPersonUuid).state != null
+                          ? Strings.savePerson
+                          : Strings.createPerson),
                     ))
                   ])
                 ],

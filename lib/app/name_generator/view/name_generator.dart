@@ -2,7 +2,9 @@ import 'package:dndnamer/app/name_generator/logic/name_generator_view_model.dart
 import 'package:dndnamer/app/name_generator/view/bottom.dart';
 import 'package:dndnamer/app/name_generator/view/name_item.dart';
 import 'package:dndnamer/app/name_generator/view/race_list.dart';
+import 'package:dndnamer/app/person_creator/view/person_creator.dart';
 import 'package:dndnamer/config/types.dart';
+import 'package:dndnamer/values/routes.dart';
 import 'package:dndnamer/widgets/progress_bar.dart';
 import 'package:dndnamer/widgets/spaces.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +45,29 @@ class NameGenerator extends ConsumerWidget {
                 child: Container(
                     width: double.infinity, height: 170, color: Colors.black87),
               ),
-              if (watch(isNameGeneratorEmpty)) _empty() else _list(list),
+              if (watch(isNameGeneratorEmpty))
+                _empty()
+              else
+                ListView.builder(
+                    controller: _controller,
+                    itemCount: list.length,
+                    padding: const EdgeInsets.only(
+                        left: 8.0, right: 8.0, bottom: 24.0, top: 4.0),
+                    itemBuilder: (context, index) => NameItem(
+                          list[index],
+                          onSave: () {
+                            context.read(editPersonUuid).state = null;
+                            context.read(personCreatorGame).state = null;
+                            context.read(personCreatorImportance).state = 0;
+                            context.read(personCreatorNameTextController).text =
+                                list[index];
+                            context
+                                .read(personCreatorDescriptionTextController)
+                                .text = "";
+
+                            Navigator.pushNamed(context, Routes.personCreator);
+                          },
+                        )),
               shadow(),
               if (watch(isWaitingNameGeneration).state) _loading(),
               SlidingUpPanel(
@@ -69,14 +93,5 @@ class NameGenerator extends ConsumerWidget {
 
   Widget _empty() {
     return Container();
-  }
-
-  Widget _list(List<String> items) {
-    return ListView.builder(
-        controller: _controller,
-        padding: const EdgeInsets.only(
-            left: 8.0, right: 8.0, bottom: 24.0, top: 4.0),
-        itemBuilder: (context, index) => NameItem(items[index]),
-        itemCount: items.length);
   }
 }

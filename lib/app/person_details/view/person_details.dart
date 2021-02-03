@@ -1,5 +1,6 @@
 import 'package:dndnamer/app/game_details/view/game_details.dart';
 import 'package:dndnamer/app/game_list/view/game_list.dart';
+import 'package:dndnamer/app/person_creator/view/person_creator.dart';
 import 'package:dndnamer/app/person_details/logic/person_details_view_model.dart';
 import 'package:dndnamer/config/types.dart';
 import 'package:dndnamer/models/person.dart';
@@ -19,18 +20,34 @@ final personDetails = StateProvider<Person>((ref) => null);
 class PersonDetails extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
+    final person = watch(personDetails).state;
+
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.black87,
           title: Text(watch(personDetails).state?.name ?? ""),
           actions: [
-            if (watch(isWaitingGameDelete).state != null)
-              const ProgressBar()
-            else
+            if (person != null) ...[
+              IconButton(
+                  icon: const Icon(Icons.edit),
+                  onPressed: () {
+                    context.read(editPersonUuid).state = person.uuid;
+                    context.read(personCreatorGame).state =
+                        context.read(gameDetails).state;
+                    context.read(personCreatorNameTextController).text =
+                        person.name;
+                    context.read(personCreatorDescriptionTextController).text =
+                        person.description;
+                    context.read(personCreatorImportance).state =
+                        person.importance;
+                    Navigator.of(context).pushNamed(Routes.personCreator);
+                  }),
               IconButton(
                   icon: const Icon(Icons.delete),
-                  onPressed: () =>
-                      context.read(personDetailsViewModel).deletePerson(context))
+                  onPressed: () => context
+                      .read(personDetailsViewModel)
+                      .deletePerson(context))
+            ]
           ],
         ),
         body: SingleChildScrollView(
