@@ -50,4 +50,18 @@ class GameDetailsViewModel {
     await ref.read(gameListViewModel).deleteGame(game.uuid);
     Navigator.of(context).pop();
   }
+
+  Future<void> deletePerson(String uuid) async {
+    if (ref.read(isWaitingPersonDelete).state != null) return;
+
+    ref.read(isWaitingPersonDelete).state = uuid;
+
+    client.deletePerson(uuid).then((value) {
+      getPersons();
+      ref.read(isWaitingPersonDelete).state = null;
+    }).catchError((error) {
+      ref.read(isWaitingPersonDelete).state = null;
+      debugPrint("Error $error");
+    });
+  }
 }

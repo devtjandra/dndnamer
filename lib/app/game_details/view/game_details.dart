@@ -15,6 +15,8 @@ final gameDetailsViewModel =
 
 final isWaitingGameDetails = StateProvider<bool>((ref) => false);
 final isWaitingPersonsList = StateProvider<bool>((ref) => false);
+final isWaitingPersonDelete = StateProvider<String>((ref) => null);
+
 final gameDetails = StateProvider<Game>((ref) => null);
 final personsList = StateProvider<List<Person>>((ref) => []);
 
@@ -40,9 +42,11 @@ class GameDetails extends ConsumerWidget {
             child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
           child: Column(children: [
-            if (watch(isWaitingGameDetails).state)
-              const ProgressBar()
-            else
+            if (watch(isWaitingGameDetails).state) ...[
+              verticalSpace(height: 24.0),
+              const ProgressBar(),
+              verticalSpace(height: 24.0),
+            ] else
               Row(
                 children: [
                   Expanded(
@@ -58,17 +62,23 @@ class GameDetails extends ConsumerWidget {
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             verticalSpace(),
-            if (watch(isWaitingPersonsList).state)
-              const ProgressBar()
-            else if (persons.isEmpty)
+            if (watch(isWaitingPersonsList).state) ...[
+              verticalSpace(height: 24.0),
+              const ProgressBar(),
+              verticalSpace(height: 24.0),
+            ] else if (persons.isEmpty)
               const Text(Strings.emptyPersons)
             else
               ...persons
                   .map((element) => PersonListItem(
-                      text: element.name,
-                      onTap: () {
-                        // TODO: Go to person details screen
-                      }))
+                        person: element,
+                        onTap: () {
+                          // TODO: Go to person details screen
+                        },
+                        onDelete: () => context
+                            .read(gameDetailsViewModel)
+                            .deletePerson(element.uuid),
+                      ))
                   .toList()
           ]),
         )));
