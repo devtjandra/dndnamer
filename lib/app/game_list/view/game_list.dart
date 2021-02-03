@@ -8,7 +8,7 @@ import 'package:flutter_riverpod/all.dart';
 final gameListViewModel =
     StateNotifierProvider<GameListViewModel>((ref) => GameListViewModel(ref));
 final isWaitingGameRefresh = StateProvider<bool>((ref) => false);
-final isWaitingDelete = StateProvider<String>((ref) => null);
+final isWaitingGameDelete = StateProvider<String>((ref) => null);
 
 class GameList extends ConsumerWidget {
   @override

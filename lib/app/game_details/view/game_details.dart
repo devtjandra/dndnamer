@@ -1,5 +1,6 @@
 import 'package:dndnamer/app/game_details/logic/game_details_view_model.dart';
 import 'package:dndnamer/app/game_details/view/person_list_item.dart';
+import 'package:dndnamer/app/game_list/view/game_list.dart';
 import 'package:dndnamer/models/game.dart';
 import 'package:dndnamer/models/person.dart';
 import 'package:dndnamer/values/values.dart';
@@ -25,6 +26,15 @@ class GameDetails extends ConsumerWidget {
         appBar: AppBar(
           backgroundColor: Colors.black87,
           title: Text(watch(gameDetails).state?.title ?? ""),
+          actions: [
+            if (watch(isWaitingGameDelete).state != null)
+              const ProgressBar()
+            else
+              IconButton(
+                  icon: const Icon(Icons.delete),
+                  onPressed: () =>
+                      context.read(gameDetailsViewModel).deleteGame(context))
+          ],
         ),
         body: SingleChildScrollView(
             child: Padding(

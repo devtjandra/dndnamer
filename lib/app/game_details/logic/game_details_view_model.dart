@@ -1,5 +1,6 @@
 import 'package:dndnamer/app/game_details/client/game_details_client.dart';
 import 'package:dndnamer/app/game_details/view/game_details.dart';
+import 'package:dndnamer/app/game_list/view/game_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/all.dart';
 
@@ -39,5 +40,14 @@ class GameDetailsViewModel {
       ref.read(personsList).state = [];
       debugPrint("Error $error");
     });
+  }
+
+  Future<void> deleteGame(BuildContext context) async {
+    final game = ref.read(gameDetails).state;
+    if (game == null) return;
+    if (ref.read(isWaitingGameDelete).state != null) return;
+
+    await ref.read(gameListViewModel).deleteGame(game.uuid);
+    Navigator.of(context).pop();
   }
 }
