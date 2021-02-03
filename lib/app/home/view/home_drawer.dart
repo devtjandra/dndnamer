@@ -16,10 +16,9 @@ class HomeDrawer extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     return Column(children: [
       DrawerHeader(
-        // decoration: BoxDecoration(color: Colors.black87),
         child: Text(
           "Welcome, ${watch(_userName).data?.value ?? ""}!",
-          // style: TextStyle(color: Colors.white),
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
       ListTile(

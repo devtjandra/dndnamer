@@ -1,5 +1,6 @@
 import 'package:dndnamer/app/login/view/login.dart';
 import 'package:dndnamer/values/values.dart';
+import 'package:dndnamer/widgets/custom_views.dart';
 import 'package:dndnamer/widgets/progress_bar.dart';
 import 'package:dndnamer/widgets/spaces.dart';
 import 'package:dndnamer/widgets/switcher.dart';

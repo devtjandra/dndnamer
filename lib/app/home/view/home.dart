@@ -14,7 +14,6 @@ class Home extends ConsumerWidget {
         child: Scaffold(
             appBar: AppBar(
                 elevation: 0,
-                backgroundColor: Colors.black87,
                 title: Text(
                   _title(watch),
                   style: const TextStyle(fontSize: 16.0, color: Colors.white),

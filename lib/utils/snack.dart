@@ -6,4 +6,8 @@ class Snack {
     Scaffold.of(context)
         .showSnackBar(const SnackBar(content: Text(Strings.errorFields)));
   }
+
+  static void showSnack(BuildContext context, String text) {
+    Scaffold.of(context).showSnackBar(SnackBar(content: Text(text)));
+  }
 }

@@ -22,7 +22,6 @@ class PersonCreator extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.black87,
           title: Text(watch(editPersonUuid).state != null
               ? Strings.personCreatorEditTitle
               : Strings.personCreatorTitle),

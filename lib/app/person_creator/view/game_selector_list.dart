@@ -11,17 +11,17 @@ class GameSelectorList extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     final games = watch(gameListViewModel.state);
 
-    return ListView.builder(
-        padding: const EdgeInsets.only(
-            left: 8.0, right: 8.0, bottom: 24.0, top: 4.0),
-        itemBuilder: (context, index) => SelectorItem(
-              text: games[index].title,
-              onTap: () {
-                context.read(personCreatorGame).state = games[index];
-                context.read(personCreatorPanelController).close();
-              },
-            ),
-        itemCount: games.length);
-    ;
+    return Scaffold(
+        body: ListView.builder(
+            padding: const EdgeInsets.only(
+                left: 8.0, right: 8.0, bottom: 24.0, top: 4.0),
+            itemBuilder: (context, index) => SelectorItem(
+                  text: games[index].title,
+                  onTap: () {
+                    context.read(personCreatorGame).state = games[index];
+                    context.read(personCreatorPanelController).close();
+                  },
+                ),
+            itemCount: games.length));
   }
 }

@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         },
         theme: ThemeData(
             fontFamily: "Montserrat",
-            colorScheme: const ColorScheme.light(
+            colorScheme: const ColorScheme.dark(
                 primary: Color(0xffbf283a), secondary: Color(0xffbf283a))),
         initialRoute: Routes.splash);
   }

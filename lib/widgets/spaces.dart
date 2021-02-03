@@ -23,8 +23,8 @@ Widget shadow() {
         begin: Alignment.bottomCenter,
         end: Alignment.topCenter,
         colors: [
-          Color(0x1a000000),
-          Color(0x00ffffff),
+          Color(0x22000000),
+          Color(0x00000000),
         ],
       )));
 }

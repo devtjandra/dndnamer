@@ -24,8 +24,10 @@ class PersonCreatorBody extends ConsumerWidget {
                     child: OutlinedButton(
                   onPressed: () =>
                       context.read(personCreatorPanelController).open(),
-                  child: Text(watch(personCreatorGame).state?.title ??
-                      Strings.emptyGame),
+                  child: Text(
+                    watch(personCreatorGame).state?.title ?? Strings.emptyGame,
+                    style: const TextStyle(color: Colors.white),
+                  ),
                 ))
               ],
             ),
@@ -66,9 +68,14 @@ class PersonCreatorBody extends ConsumerWidget {
                 onPressed: _isValid(watch)
                     ? () => context.read(_viewModel).add(context)
                     : () {},
-                child: Text(watch(editPersonUuid).state != null
-                    ? Strings.savePerson
-                    : Strings.createPerson),
+                child: Text(
+                    watch(editPersonUuid).state != null
+                        ? Strings.savePerson
+                        : Strings.createPerson,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    )),
               ))
             ])
           ],

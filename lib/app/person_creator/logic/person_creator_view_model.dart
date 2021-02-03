@@ -4,6 +4,7 @@ import 'package:dndnamer/app/person_creator/view/person_creator.dart';
 import 'package:dndnamer/app/person_details/view/person_details.dart';
 import 'package:dndnamer/models/person.dart';
 import 'package:dndnamer/utils/snack.dart';
+import 'package:dndnamer/values/values.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/all.dart';
 import 'package:uuid/uuid.dart';
@@ -50,6 +51,7 @@ class PersonCreatorViewModel {
         ref.read(personDetailsViewModel).getPerson(editUuid);
       }
 
+      Snack.showSnack(context, Strings.toastCharacterCreation);
       Navigator.of(context).pop();
     }).catchError((error) {
       ref.read(isWaitingPersonCreation).state = false;

@@ -1,11 +1,8 @@
-import 'package:dndnamer/app/game_creator/logic/game_creator_view_model.dart';
+import 'package:dndnamer/app/game_creator/view/game_creator_action.dart';
 import 'package:dndnamer/values/values.dart';
 import 'package:dndnamer/widgets/spaces.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/all.dart';
-
-final _viewModel =
-    Provider<GameCreatorViewModel>((ref) => GameCreatorViewModel(ref));
 
 final gameCreatorTitleTextController =
     Provider<TextEditingController>((ref) => TextEditingController());
@@ -19,7 +16,6 @@ class GameCreator extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black87,
         title: Text(watch(editGameUuid).state != null
             ? Strings.gameCreatorEditTitle
             : Strings.gameCreatorTitle),
@@ -30,20 +26,7 @@ class GameCreator extends ConsumerWidget {
             verticalSpace(),
             ..._form(watch),
             verticalSpace(),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Row(children: [
-                Expanded(
-                    child: ElevatedButton(
-                  onPressed: () async {
-                    context.read(_viewModel).createClick(context);
-                  },
-                  child: Text(watch(editGameUuid).state != null
-                      ? Strings.saveGame
-                      : Strings.createGame),
-                ))
-              ]),
-            )
+            GameCreatorAction()
           ],
         ),
       ),

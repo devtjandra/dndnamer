@@ -4,6 +4,7 @@ import 'package:dndnamer/app/game_details/view/game_details.dart';
 import 'package:dndnamer/app/game_list/view/game_list.dart';
 import 'package:dndnamer/models/game.dart';
 import 'package:dndnamer/utils/snack.dart';
+import 'package:dndnamer/values/values.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/all.dart';
@@ -48,6 +49,7 @@ class GameCreatorViewModel {
         ref.read(gameDetailsViewModel).getGame(editUuid);
       }
 
+      Snack.showSnack(context, Strings.toastGameCreation);
       Navigator.of(context).pop();
     }).catchError((error) {
       ref.read(isWaitingGameCreation).state = false;

@@ -6,6 +6,7 @@ import 'package:dndnamer/app/person_details/view/person_details.dart';
 import 'package:dndnamer/models/game.dart';
 import 'package:dndnamer/models/person.dart';
 import 'package:dndnamer/values/values.dart';
+import 'package:dndnamer/widgets/custom_views.dart';
 import 'package:dndnamer/widgets/horizontal_line.dart';
 import 'package:dndnamer/widgets/progress_bar.dart';
 import 'package:dndnamer/widgets/spaces.dart';
@@ -29,7 +30,6 @@ class GameDetails extends ConsumerWidget {
     final game = watch(gameDetails).state;
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.black87,
           title: Text(watch(gameDetails).state?.title ?? ""),
           actions: [
             if (game != null) ...[
@@ -65,65 +65,70 @@ class GameDetails extends ConsumerWidget {
             color: Colors.white,
           ),
         ),
-        body: SingleChildScrollView(
-            child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
-          child: Column(children: [
-            if (game == null) ...[
-              verticalSpace(height: 24.0),
-              const ProgressBar(),
-              verticalSpace(height: 24.0),
-            ] else
-              Row(
-                children: [
-                  Expanded(
-                    child: Text(game?.description ?? ""),
-                  )
-                ],
+        body: Stack(children: [
+          background(),
+          SingleChildScrollView(
+              child: Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
+            child: Column(children: [
+              if (game == null) ...[
+                verticalSpace(height: 24.0),
+                const ProgressBar(),
+                verticalSpace(height: 24.0),
+              ] else
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(game?.description ?? ""),
+                    )
+                  ],
+                ),
+              verticalSpace(height: 16.0),
+              HorizontalLine(),
+              verticalSpace(height: 16.0),
+              const Text(
+                Strings.characters,
+                style: TextStyle(fontWeight: FontWeight.bold),
               ),
-            verticalSpace(height: 16.0),
-            HorizontalLine(),
-            verticalSpace(height: 16.0),
-            const Text(
-              Strings.characters,
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            verticalSpace(),
-            if (watch(isWaitingPersonsList).state) ...[
-              verticalSpace(height: 24.0),
-              const ProgressBar(),
-              verticalSpace(height: 24.0),
-            ] else if (persons.isEmpty)
-              const Text(Strings.emptyPersons)
-            else
-              ...persons
-                  .map((element) => PersonListItem(
-                        person: element,
-                        onTap: () {
-                          context
-                              .read(personDetailsViewModel)
-                              .getPerson(element.uuid);
-                          Navigator.of(context).pushNamed(Routes.personDetails);
-                        },
-                        onEdit: () {
-                          context.read(editPersonUuid).state = element.uuid;
-                          context.read(personCreatorGame).state = game;
-                          context.read(personCreatorNameTextController).text =
-                              element.name;
-                          context
-                              .read(personCreatorDescriptionTextController)
-                              .text = element.description;
-                          context.read(personCreatorImportance).state =
-                              element.importance;
+              verticalSpace(),
+              if (watch(isWaitingPersonsList).state) ...[
+                verticalSpace(height: 24.0),
+                const ProgressBar(),
+                verticalSpace(height: 24.0),
+              ] else if (persons.isEmpty)
+                const Text(Strings.emptyPersons)
+              else
+                ...persons
+                    .map((element) => PersonListItem(
+                          person: element,
+                          onTap: () {
+                            context
+                                .read(personDetailsViewModel)
+                                .getPerson(element.uuid);
+                            Navigator.of(context)
+                                .pushNamed(Routes.personDetails);
+                          },
+                          onEdit: () {
+                            context.read(editPersonUuid).state = element.uuid;
+                            context.read(personCreatorGame).state = game;
+                            context.read(personCreatorNameTextController).text =
+                                element.name;
+                            context
+                                .read(personCreatorDescriptionTextController)
+                                .text = element.description;
+                            context.read(personCreatorImportance).state =
+                                element.importance;
 
-                          Navigator.pushNamed(context, Routes.personCreator);
-                        },
-                        onDelete: () => context
-                            .read(gameDetailsViewModel)
-                            .deletePerson(element.uuid),
-                      ))
-                  .toList()
-          ]),
-        )));
+                            Navigator.pushNamed(context, Routes.personCreator);
+                          },
+                          onDelete: () => context
+                              .read(gameDetailsViewModel)
+                              .deletePerson(element.uuid),
+                        ))
+                    .toList()
+            ]),
+          )),
+        ]));
   }
 }

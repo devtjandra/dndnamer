@@ -28,6 +28,7 @@ class Strings {
   static const savePerson = "Save Character";
   static const createGame = "Create Game";
   static const saveGame = "Save Game";
+  static const nameGeneratorButton = "Go";
 
   // Drawer
   static const home = "Home";
@@ -39,4 +40,8 @@ class Strings {
   static const emptyPersons = "No characters added yet for this game.";
   static const game = "Game";
   static const importance = "Importance";
+
+  // Toasts
+  static const toastGameCreation = "Game saved!";
+  static const toastCharacterCreation = "Character saved!";
 }

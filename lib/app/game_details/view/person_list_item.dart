@@ -1,3 +1,4 @@
+import 'package:dndnamer/app/person_creator/view/custom_card.dart';
 import 'package:dndnamer/models/person.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -9,18 +10,15 @@ class PersonListItem extends StatelessWidget {
   final VoidCallback onEdit;
   final VoidCallback onDelete;
 
-  PersonListItem({@required this.person, this.onTap, this.onEdit, this.onDelete});
+  PersonListItem(
+      {@required this.person, this.onTap, this.onEdit, this.onDelete});
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Expanded(
-          child: Card(
-            margin: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
-            shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(12.0))),
-            elevation: 3.0,
+          child: CustomCard(
             child: Slidable(
               controller: _controller,
               actionPane: const SlidableStrechActionPane(),

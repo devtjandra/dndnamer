@@ -4,6 +4,7 @@ import 'package:dndnamer/app/person_details/logic/person_details_view_model.dart
 import 'package:dndnamer/config/types.dart';
 import 'package:dndnamer/models/person.dart';
 import 'package:dndnamer/values/values.dart';
+import 'package:dndnamer/widgets/custom_views.dart';
 import 'package:dndnamer/widgets/horizontal_line.dart';
 import 'package:dndnamer/widgets/progress_bar.dart';
 import 'package:dndnamer/widgets/spaces.dart';
@@ -23,7 +24,6 @@ class PersonDetails extends ConsumerWidget {
 
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.black87,
           title: Text(watch(personDetails).state?.name ?? ""),
           actions: [
             if (person != null) ...[
@@ -49,51 +49,55 @@ class PersonDetails extends ConsumerWidget {
             ]
           ],
         ),
-        body: SingleChildScrollView(
-            child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
-          child: Column(children: [
-            Row(
-              children: [
-                const Text(Strings.game),
-                horizontalSpace(),
-                Expanded(
-                  child: Text(
-                    watch(gameDetails).state?.title ?? "",
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                )
-              ],
-            ),
-            verticalSpace(),
-            Row(
-              children: [
-                const Text(Strings.importance),
-                horizontalSpace(),
-                Expanded(
-                  child: Text(
-                    importance[person?.importance ?? 0],
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                )
-              ],
-            ),
-            verticalSpace(height: 16.0),
-            HorizontalLine(),
-            verticalSpace(height: 16.0),
-            if (person == null) ...[
-              verticalSpace(height: 24.0),
-              const ProgressBar(),
-              verticalSpace(height: 24.0),
-            ] else
+        body: Stack(children: [
+          background(),
+          SingleChildScrollView(
+              child: Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
+            child: Column(children: [
               Row(
                 children: [
+                  const Text(Strings.game),
+                  horizontalSpace(),
                   Expanded(
-                    child: Text(person?.description ?? ""),
+                    child: Text(
+                      watch(gameDetails).state?.title ?? "",
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
                   )
                 ],
               ),
-          ]),
-        )));
+              verticalSpace(),
+              Row(
+                children: [
+                  const Text(Strings.importance),
+                  horizontalSpace(),
+                  Expanded(
+                    child: Text(
+                      importance[person?.importance ?? 0],
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  )
+                ],
+              ),
+              verticalSpace(height: 16.0),
+              HorizontalLine(),
+              verticalSpace(height: 16.0),
+              if (person == null) ...[
+                verticalSpace(height: 24.0),
+                const ProgressBar(),
+                verticalSpace(height: 24.0),
+              ] else
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(person?.description ?? ""),
+                    )
+                  ],
+                ),
+            ]),
+          )),
+        ]));
   }
 }

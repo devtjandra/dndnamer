@@ -22,7 +22,6 @@ class RaceList extends ConsumerWidget {
                 Strings.raceListTitle,
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: Colors.black54,
                     fontSize: 12.0),
               ),
             ),
@@ -31,7 +30,6 @@ class RaceList extends ConsumerWidget {
               padding: const EdgeInsets.only(right: 4.0),
               child: IconButton(
                   icon: const Icon(Icons.close),
-                  color: Colors.black38,
                   onPressed: () =>
                       context.read(nameGeneratorPanelController).close()),
             )

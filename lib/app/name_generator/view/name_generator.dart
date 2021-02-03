@@ -5,6 +5,7 @@ import 'package:dndnamer/app/name_generator/view/race_list.dart';
 import 'package:dndnamer/app/person_creator/view/person_creator.dart';
 import 'package:dndnamer/config/types.dart';
 import 'package:dndnamer/values/routes.dart';
+import 'package:dndnamer/widgets/custom_views.dart';
 import 'package:dndnamer/widgets/progress_bar.dart';
 import 'package:dndnamer/widgets/spaces.dart';
 import 'package:flutter/material.dart';
@@ -40,11 +41,7 @@ class NameGenerator extends ConsumerWidget {
           child: Stack(
             alignment: Alignment.bottomCenter,
             children: [
-              Align(
-                alignment: Alignment.topCenter,
-                child: Container(
-                    width: double.infinity, height: 170, color: Colors.black87),
-              ),
+              background(),
               if (watch(isNameGeneratorEmpty))
                 _empty()
               else

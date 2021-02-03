@@ -1,4 +1,5 @@
 import 'package:dndnamer/app/name_generator/view/name_generator.dart';
+import 'package:dndnamer/values/values.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/all.dart';
 
@@ -9,7 +10,7 @@ class Bottom extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-      color: Colors.white,
+      // color: Colo,
       child: Wrap(
         children: [
           Column(
@@ -18,7 +19,8 @@ class Bottom extends ConsumerWidget {
                 children: [
                   Expanded(
                     child: OutlineButton(
-                        onPressed: () => context.read(nameGeneratorPanelController).open(),
+                        onPressed: () =>
+                            context.read(nameGeneratorPanelController).open(),
                         child: Text(watch(nameGeneratorRace).state)),
                   )
                 ],
@@ -36,7 +38,11 @@ class Bottom extends ConsumerWidget {
       Expanded(
           child: ElevatedButton(
         onPressed: () => context.read(nameGeneratorViewModel).restart(),
-        child: const Text("Go"),
+        child: const Text(Strings.nameGeneratorButton,
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            )),
       )),
     ]);
   }

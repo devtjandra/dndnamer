@@ -1,5 +1,6 @@
 import 'package:dndnamer/app/login/logic/login_view_model.dart';
 import 'package:dndnamer/app/login/view/login_body.dart';
+import 'package:dndnamer/widgets/custom_views.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/all.dart';
 
@@ -19,10 +20,12 @@ class Login extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     return SafeArea(
         child: Scaffold(
-      body: Container(
+            body: Stack(children: [
+      background(),
+      Container(
           alignment: Alignment.center,
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: LoginBody()),
-    ));
+    ])));
   }
 }
