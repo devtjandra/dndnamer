@@ -1,6 +1,6 @@
+import 'package:dndnamer/app/game_creator/view/game_creator.dart';
 import 'package:dndnamer/app/game_details/logic/game_details_view_model.dart';
 import 'package:dndnamer/app/game_details/view/person_list_item.dart';
-import 'package:dndnamer/app/game_list/view/game_list.dart';
 import 'package:dndnamer/app/person_creator/view/person_creator.dart';
 import 'package:dndnamer/app/person_details/view/person_details.dart';
 import 'package:dndnamer/models/game.dart';
@@ -26,24 +26,33 @@ class GameDetails extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final persons = watch(personsList).state;
+    final game = watch(gameDetails).state;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.black87,
           title: Text(watch(gameDetails).state?.title ?? ""),
           actions: [
-            if (watch(isWaitingGameDelete).state != null)
-              const ProgressBar()
-            else
+            if (game != null) ...[
+              IconButton(
+                  icon: const Icon(Icons.edit),
+                  onPressed: () {
+                    context.read(gameCreatorTitleTextController).text =
+                        game.title;
+                    context.read(gameCreatorDescriptionTextController).text =
+                        game.description;
+                    context.read(editGameUuid).state = game.uuid;
+                    Navigator.of(context).pushNamed(Routes.gameCreator);
+                  }),
               IconButton(
                   icon: const Icon(Icons.delete),
                   onPressed: () =>
                       context.read(gameDetailsViewModel).deleteGame(context))
+            ]
           ],
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            context.read(personCreatorGame).state =
-                context.read(gameDetails).state;
+            context.read(personCreatorGame).state = game;
             context.read(editPersonUuid).state = null;
             context.read(personCreatorNameTextController).text = "";
             context.read(personCreatorDescriptionTextController).text = "";
@@ -60,7 +69,7 @@ class GameDetails extends ConsumerWidget {
             child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
           child: Column(children: [
-            if (watch(isWaitingGameDetails).state) ...[
+            if (game == null) ...[
               verticalSpace(height: 24.0),
               const ProgressBar(),
               verticalSpace(height: 24.0),
@@ -68,7 +77,7 @@ class GameDetails extends ConsumerWidget {
               Row(
                 children: [
                   Expanded(
-                    child: Text(watch(gameDetails).state?.description ?? ""),
+                    child: Text(game?.description ?? ""),
                   )
                 ],
               ),
@@ -98,8 +107,7 @@ class GameDetails extends ConsumerWidget {
                         },
                         onEdit: () {
                           context.read(editPersonUuid).state = element.uuid;
-                          context.read(personCreatorGame).state =
-                              context.read(gameDetails).state;
+                          context.read(personCreatorGame).state = game;
                           context.read(personCreatorNameTextController).text =
                               element.name;
                           context

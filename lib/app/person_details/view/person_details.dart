@@ -1,5 +1,4 @@
 import 'package:dndnamer/app/game_details/view/game_details.dart';
-import 'package:dndnamer/app/game_list/view/game_list.dart';
 import 'package:dndnamer/app/person_creator/view/person_creator.dart';
 import 'package:dndnamer/app/person_details/logic/person_details_view_model.dart';
 import 'package:dndnamer/config/types.dart';
@@ -73,7 +72,7 @@ class PersonDetails extends ConsumerWidget {
                 horizontalSpace(),
                 Expanded(
                   child: Text(
-                    importance[watch(personDetails).state?.importance ?? 0],
+                    importance[person?.importance ?? 0],
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                 )
@@ -82,7 +81,7 @@ class PersonDetails extends ConsumerWidget {
             verticalSpace(height: 16.0),
             HorizontalLine(),
             verticalSpace(height: 16.0),
-            if (watch(isWaitingPersonDetails).state) ...[
+            if (person == null) ...[
               verticalSpace(height: 24.0),
               const ProgressBar(),
               verticalSpace(height: 24.0),
@@ -90,7 +89,7 @@ class PersonDetails extends ConsumerWidget {
               Row(
                 children: [
                   Expanded(
-                    child: Text(watch(personDetails).state?.description ?? ""),
+                    child: Text(person?.description ?? ""),
                   )
                 ],
               ),

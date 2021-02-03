@@ -12,6 +12,7 @@ final gameCreatorTitleTextController =
 final gameCreatorDescriptionTextController =
     Provider<TextEditingController>((ref) => TextEditingController());
 final isWaitingGameCreation = StateProvider<bool>((ref) => false);
+final editGameUuid = StateProvider<String>((ref) => null);
 
 class GameCreator extends ConsumerWidget {
   @override
@@ -19,34 +20,15 @@ class GameCreator extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black87,
-        title: const Text(Strings.gameCreatorTitle),
+        title: Text(watch(editGameUuid).state != null
+            ? Strings.gameCreatorEditTitle
+            : Strings.gameCreatorTitle),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
             verticalSpace(),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: TextField(
-                  controller: watch(gameCreatorTitleTextController),
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                  decoration: const InputDecoration.collapsed(
-                      hintText: Strings.title,
-                      hintStyle: TextStyle(color: Colors.grey))),
-            ),
-            verticalSpace(),
-            verticalSpace(),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: TextField(
-                controller: watch(gameCreatorDescriptionTextController),
-                keyboardType: TextInputType.multiline,
-                maxLines: 5,
-                decoration: const InputDecoration.collapsed(
-                    hintText: "Description",
-                    hintStyle: TextStyle(color: Colors.grey)),
-              ),
-            ),
+            ..._form(watch),
             verticalSpace(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -56,7 +38,9 @@ class GameCreator extends ConsumerWidget {
                   onPressed: () async {
                     context.read(_viewModel).createClick(context);
                   },
-                  child: const Text(Strings.createGame),
+                  child: Text(watch(editGameUuid).state != null
+                      ? Strings.saveGame
+                      : Strings.createGame),
                 ))
               ]),
             )
@@ -64,5 +48,32 @@ class GameCreator extends ConsumerWidget {
         ),
       ),
     );
+  }
+
+  List<Widget> _form(ScopedReader watch) {
+    return [
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: TextField(
+            controller: watch(gameCreatorTitleTextController),
+            style: const TextStyle(fontWeight: FontWeight.bold),
+            decoration: const InputDecoration.collapsed(
+                hintText: Strings.title,
+                hintStyle: TextStyle(color: Colors.grey))),
+      ),
+      verticalSpace(),
+      verticalSpace(),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: TextField(
+          controller: watch(gameCreatorDescriptionTextController),
+          keyboardType: TextInputType.multiline,
+          maxLines: 10,
+          decoration: const InputDecoration.collapsed(
+              hintText: "Description",
+              hintStyle: TextStyle(color: Colors.grey)),
+        ),
+      )
+    ];
   }
 }

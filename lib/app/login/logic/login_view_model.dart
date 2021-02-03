@@ -15,7 +15,6 @@ class LoginViewModel {
   Future<void> goClick(BuildContext context) async {
     if (ref.read(isWaitingLogin).state) return;
 
-    ref.read(isWaitingLogin).state = true;
     final email = ref.read(loginEmailTextController).text;
     final password = ref.read(loginPasswordTextController).text;
     final login = ref.read(isLogin).state;
@@ -24,6 +23,8 @@ class LoginViewModel {
       Snack.showFieldErrorSnack(context);
       return;
     }
+    
+    ref.read(isWaitingLogin).state = true;
 
     if (login) {
       client.signIn(email, password).then((value) {

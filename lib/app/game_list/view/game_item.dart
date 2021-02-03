@@ -8,9 +8,10 @@ class GameItem extends StatelessWidget {
   final _controller = SlidableController();
   final Game game;
   final VoidCallback onTap;
+  final VoidCallback onEdit;
   final VoidCallback onDelete;
 
-  GameItem({@required this.game, this.onTap, this.onDelete});
+  GameItem({@required this.game, this.onTap, this.onEdit, this.onDelete});
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +51,7 @@ class GameItem extends StatelessWidget {
       icon: Icons.edit,
       onTap: () {
         _controller.activeState.close();
-        // TODO: Edit
+        if (onEdit != null) onEdit();
       },
       closeOnTap: false,
     );
@@ -62,7 +63,7 @@ class GameItem extends StatelessWidget {
       icon: Icons.delete,
       onTap: () {
         _controller.activeState.close();
-        onDelete();
+        if (onDelete != null) onDelete();
       },
       closeOnTap: false,
     );

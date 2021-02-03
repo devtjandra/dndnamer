@@ -1,6 +1,6 @@
 import 'package:dndnamer/app/name_generator/view/name_generator.dart';
 import 'package:dndnamer/config/types.dart';
-import 'package:dndnamer/widgets/horizontal_line.dart';
+import 'package:dndnamer/values/values.dart';
 import 'package:dndnamer/widgets/selector_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/all.dart';
@@ -19,7 +19,7 @@ class RaceList extends ConsumerWidget {
               alignment: Alignment.center,
               padding: const EdgeInsets.all(12.0),
               child: const Text(
-                "SELECT RACE",
+                Strings.raceListTitle,
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.black54,

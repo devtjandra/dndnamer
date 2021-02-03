@@ -1,3 +1,4 @@
+import 'package:dndnamer/app/game_creator/view/game_creator.dart';
 import 'package:dndnamer/app/game_list/logic/game_list_view_model.dart';
 import 'package:dndnamer/app/game_details/view/game_details.dart';
 import 'package:dndnamer/app/game_list/view/game_item.dart';
@@ -17,7 +18,12 @@ class GameList extends ConsumerWidget {
 
     return Scaffold(
         floatingActionButton: FloatingActionButton(
-          onPressed: () => Navigator.of(context).pushNamed(Routes.gameCreator),
+          onPressed: () {
+            context.read(gameCreatorTitleTextController).text = "";
+            context.read(gameCreatorDescriptionTextController).text = "";
+            context.read(editGameUuid).state = null;
+            Navigator.of(context).pushNamed(Routes.gameCreator);
+          },
           child: const Icon(
             Icons.add,
             color: Colors.white,
@@ -33,6 +39,14 @@ class GameList extends ConsumerWidget {
                         .read(gameDetailsViewModel)
                         .getGame(games[index].uuid);
                     Navigator.of(context).pushNamed(Routes.gameDetails);
+                  },
+                  onEdit: () {
+                    context.read(gameCreatorTitleTextController).text =
+                        games[index].title;
+                    context.read(gameCreatorDescriptionTextController).text =
+                        games[index].description;
+                    context.read(editGameUuid).state = games[index].uuid;
+                    Navigator.of(context).pushNamed(Routes.gameCreator);
                   },
                   onDelete: () => context
                       .read(gameListViewModel)

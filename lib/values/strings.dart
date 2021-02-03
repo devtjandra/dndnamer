@@ -16,9 +16,12 @@ class Strings {
   static const description = "Description";
 
   // Titles
-  static const personCreatorTitle = "Add a New Person";
+  static const personCreatorTitle = "Add a New Character";
   static const gameCreatorTitle = "Add a New Game";
+  static const personCreatorEditTitle = "Edit a Character";
+  static const gameCreatorEditTitle = "Edit a Game";
   static const gameListTitle = "My Games";
+  static const raceListTitle = "Select Race";
 
   // Buttons
   static const createPerson = "Create Character";

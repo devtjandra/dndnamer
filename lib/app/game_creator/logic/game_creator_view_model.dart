@@ -1,5 +1,6 @@
 import 'package:dndnamer/app/game_creator/client/game_creator_client.dart';
 import 'package:dndnamer/app/game_creator/view/game_creator.dart';
+import 'package:dndnamer/app/game_details/view/game_details.dart';
 import 'package:dndnamer/app/game_list/view/game_list.dart';
 import 'package:dndnamer/models/game.dart';
 import 'package:dndnamer/utils/snack.dart';
@@ -28,10 +29,11 @@ class GameCreatorViewModel {
 
     final uuid = Uuid();
     final gameUuid = uuid.v4().toString();
+    final editUuid = ref.read(editGameUuid).state;
 
     client
         .createGame(Game(
-            uuid: gameUuid,
+            uuid: editUuid ?? gameUuid,
             accountUid: FirebaseAuth.instance.currentUser.uid,
             title: title,
             description: description))
@@ -40,6 +42,12 @@ class GameCreatorViewModel {
       ref.read(gameListViewModel).refreshGame();
       ref.read(gameCreatorTitleTextController).text = "";
       ref.read(gameCreatorDescriptionTextController).text = "";
+      ref.read(editGameUuid).state = null;
+
+      if (editUuid != null) {
+        ref.read(gameDetailsViewModel).getGame(editUuid);
+      }
+
       Navigator.of(context).pop();
     }).catchError((error) {
       ref.read(isWaitingGameCreation).state = false;
