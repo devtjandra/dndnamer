@@ -1,5 +1,6 @@
 import 'package:dndnamer/app/name_generator/view/name_generator.dart';
 import 'package:dndnamer/values/values.dart';
+import 'package:dndnamer/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/all.dart';
 
@@ -25,25 +26,21 @@ class Bottom extends ConsumerWidget {
                   )
                 ],
               ),
-              _buttonRow(context)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8.0, top: 4.0),
+                child: Row(children: [
+                  Expanded(
+                      child: CustomButton(
+                    onTap: () => context.read(nameGeneratorViewModel).restart(),
+                    isLoading: watch(isWaitingNameGeneration).state,
+                    text: Strings.nameGeneratorButton,
+                  )),
+                ]),
+              )
             ],
           )
         ],
       ),
     );
-  }
-
-  Widget _buttonRow(BuildContext context) {
-    return Row(children: [
-      Expanded(
-          child: ElevatedButton(
-        onPressed: () => context.read(nameGeneratorViewModel).restart(),
-        child: const Text(Strings.nameGeneratorButton,
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            )),
-      )),
-    ]);
   }
 }

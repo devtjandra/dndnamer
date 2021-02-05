@@ -30,9 +30,19 @@ class MyApp extends StatelessWidget {
           Routes.personDetails: (_) => PersonDetails()
         },
         theme: ThemeData(
-            fontFamily: "Montserrat",
-            colorScheme: const ColorScheme.dark(
-                primary: Color(0xffbf283a), secondary: Color(0xffbf283a))),
+          fontFamily: "Montserrat",
+          brightness: Brightness.dark,
+
+          primarySwatch: Colors.grey,
+          primaryColor: const Color(0xff212121),
+          primaryColorBrightness: Brightness.dark,
+
+          //this is what you want
+          accentColor: const Color(0xffbf283a),
+          accentColorBrightness: Brightness.dark,
+          // colorScheme: const ColorScheme.dark(
+          //     primary: Color(0xffbf283a), secondary: Color(0xffbf283a))
+        ),
         initialRoute: Routes.splash);
   }
 }

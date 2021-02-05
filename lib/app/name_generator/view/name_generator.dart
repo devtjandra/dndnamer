@@ -66,7 +66,6 @@ class NameGenerator extends ConsumerWidget {
                           },
                         )),
               shadow(),
-              if (watch(isWaitingNameGeneration).state) _loading(),
               SlidingUpPanel(
                   minHeight: 0.0,
                   maxHeight: 350.0,

@@ -2,6 +2,7 @@ import 'package:dndnamer/app/person_creator/logic/person_creator_view_model.dart
 import 'package:dndnamer/app/person_creator/view/person_creator.dart';
 import 'package:dndnamer/config/types.dart';
 import 'package:dndnamer/values/values.dart';
+import 'package:dndnamer/widgets/custom_button.dart';
 import 'package:dndnamer/widgets/progress_bar.dart';
 import 'package:dndnamer/widgets/spaces.dart';
 import 'package:flutter/material.dart';
@@ -64,18 +65,14 @@ class PersonCreatorBody extends ConsumerWidget {
             verticalSpace(),
             Row(children: [
               Expanded(
-                  child: ElevatedButton(
-                onPressed: _isValid(watch)
+                  child: CustomButton(
+                onTap: _isValid(watch)
                     ? () => context.read(_viewModel).add(context)
                     : () {},
-                child: Text(
-                    watch(editPersonUuid).state != null
-                        ? Strings.savePerson
-                        : Strings.createPerson,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    )),
+                isLoading: watch(isWaitingPersonCreation).state,
+                text: watch(editPersonUuid).state != null
+                    ? Strings.savePerson
+                    : Strings.createPerson,
               ))
             ])
           ],

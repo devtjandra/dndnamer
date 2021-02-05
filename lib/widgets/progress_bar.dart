@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 
 class ProgressBar extends StatelessWidget {
-  const ProgressBar();
+  final Color color;
+
+  const ProgressBar({this.color});
 
   @override
   Widget build(BuildContext context) {
-    return const SizedBox(
+    return SizedBox(
       height: 15,
       width: 15,
       child: CircularProgressIndicator(
         strokeWidth: 3,
-        // backgroundColor: Colors.blue,
+        valueColor:
+            AlwaysStoppedAnimation<Color>(color ?? const Color(0xffbf283a)),
       ),
     );
   }

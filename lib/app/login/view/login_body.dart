@@ -1,5 +1,6 @@
 import 'package:dndnamer/app/login/view/login.dart';
 import 'package:dndnamer/values/values.dart';
+import 'package:dndnamer/widgets/custom_button.dart';
 import 'package:dndnamer/widgets/custom_views.dart';
 import 'package:dndnamer/widgets/progress_bar.dart';
 import 'package:dndnamer/widgets/spaces.dart';
@@ -27,10 +28,10 @@ class LoginBody extends ConsumerWidget {
         verticalSpace(),
         ..._form(watch),
         verticalSpace(),
-        OutlineButton(
-            onPressed: () => context.read(loginViewModel).goClick(context),
-            child:
-                Text(watch(isLogin).state ? Strings.login : Strings.register))
+        CustomButton(
+            onTap: () => context.read(loginViewModel).goClick(context),
+            isLoading: watch(isWaitingLogin).state,
+            text: watch(isLogin).state ? Strings.login : Strings.register)
       ],
     );
   }
@@ -53,10 +54,6 @@ class LoginBody extends ConsumerWidget {
             controller: watch(loginNameTextController),
             decoration: const InputDecoration.collapsed(
                 hintText: Strings.name, hintStyle: Styles.hintText)),
-      if (watch(isWaitingLogin).state) ...[
-        verticalSpace(),
-        const ProgressBar()
-      ],
     ];
   }
 }

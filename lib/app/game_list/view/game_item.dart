@@ -24,7 +24,7 @@ class GameItem extends StatelessWidget {
           onTap: onTap,
           child: Container(
               padding:
-                  const EdgeInsets.symmetric(vertical: 24.0, horizontal: 24.0),
+                  const EdgeInsets.symmetric(vertical: 18.0, horizontal: 24.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -32,7 +32,7 @@ class GameItem extends StatelessWidget {
                     game.title,
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  verticalSpace(height: 6.0),
+                  verticalSpace(height: 4.0),
                   Text(game.description, maxLines: 2),
                 ],
               )),

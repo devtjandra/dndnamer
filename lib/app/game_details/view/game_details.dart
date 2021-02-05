@@ -70,7 +70,7 @@ class GameDetails extends ConsumerWidget {
           SingleChildScrollView(
               child: Padding(
             padding:
-                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
+                const EdgeInsets.symmetric(horizontal: 8.0, vertical: 24.0),
             child: Column(children: [
               if (game == null) ...[
                 verticalSpace(height: 24.0),

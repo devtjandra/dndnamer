@@ -17,7 +17,9 @@ class GameCreatorViewModel {
   GameCreatorViewModel(this.ref) : super();
 
   Future<void> createClick(BuildContext context) async {
+    debugPrint("test");
     if (ref.read(isWaitingGameCreation).state) return;
+    debugPrint("test2");
 
     ref.read(isWaitingGameCreation).state = true;
     final title = ref.read(gameCreatorTitleTextController).text;
@@ -27,6 +29,7 @@ class GameCreatorViewModel {
       Snack.showFieldErrorSnack(context);
       return;
     }
+    debugPrint("test3");
 
     final uuid = Uuid();
     final gameUuid = uuid.v4().toString();
