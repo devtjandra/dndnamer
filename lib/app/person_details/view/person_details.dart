@@ -54,33 +54,39 @@ class PersonDetails extends ConsumerWidget {
           SingleChildScrollView(
               child: Padding(
             padding:
-                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
+                const EdgeInsets.symmetric(horizontal: 8.0, vertical: 24.0),
             child: Column(children: [
-              Row(
-                children: [
-                  const Text(Strings.game),
-                  horizontalSpace(),
-                  Expanded(
-                    child: Text(
-                      watch(gameDetails).state?.title ?? "",
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  )
-                ],
-              ),
+              Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 8.0),
+                  child: Row(
+                    children: [
+                      const Text(Strings.game),
+                      horizontalSpace(),
+                      Expanded(
+                        child: Text(
+                          watch(gameDetails).state?.title ?? "",
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      )
+                    ],
+                  )),
               verticalSpace(),
-              Row(
-                children: [
-                  const Text(Strings.importance),
-                  horizontalSpace(),
-                  Expanded(
-                    child: Text(
-                      importance[person?.importance ?? 0],
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  )
-                ],
-              ),
+              Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 8.0),
+                  child: Row(
+                    children: [
+                      const Text(Strings.importance),
+                      horizontalSpace(),
+                      Expanded(
+                        child: Text(
+                          importance[person?.importance ?? 0],
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      )
+                    ],
+                  )),
               verticalSpace(height: 16.0),
               HorizontalLine(),
               verticalSpace(height: 16.0),
@@ -89,13 +95,17 @@ class PersonDetails extends ConsumerWidget {
                 const ProgressBar(),
                 verticalSpace(height: 24.0),
               ] else
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(person?.description ?? ""),
-                    )
-                  ],
-                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 8.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(person?.description ?? ""),
+                      )
+                    ],
+                  ),
+                )
             ]),
           )),
         ]));

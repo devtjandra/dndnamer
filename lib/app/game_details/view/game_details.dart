@@ -79,8 +79,12 @@ class GameDetails extends ConsumerWidget {
               ] else
                 Row(
                   children: [
-                    Expanded(
-                      child: Text(game?.description ?? ""),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0, vertical: 12.0),
+                      child: Expanded(
+                        child: Text(game?.description ?? ""),
+                      ),
                     )
                   ],
                 ),

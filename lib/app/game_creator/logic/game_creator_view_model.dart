@@ -25,7 +25,7 @@ class GameCreatorViewModel {
     final title = ref.read(gameCreatorTitleTextController).text;
     final description = ref.read(gameCreatorDescriptionTextController).text;
 
-    if (title.isEmpty || description.isEmpty) {
+    if (title.isEmpty) {
       Snack.showFieldErrorSnack(context);
       return;
     }

@@ -24,7 +24,7 @@ class PersonCreatorViewModel {
     final game = ref.read(personCreatorGame).state;
     final importance = ref.read(personCreatorImportance).state;
 
-    if (name.isEmpty || description.isEmpty || game == null) {
+    if (name.isEmpty || game == null) {
       Snack.showFieldErrorSnack(context);
       return;
     }
