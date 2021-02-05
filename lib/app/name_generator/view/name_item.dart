@@ -1,4 +1,5 @@
 import 'package:dndnamer/app/person_creator/view/custom_card.dart';
+import 'package:dndnamer/values/values.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
@@ -12,6 +13,8 @@ class NameItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomCard(
+        child: ClipRRect(
+      borderRadius: Styles.sliderClipper,
       child: Slidable(
         controller: _controller,
         actionPane: const SlidableStrechActionPane(),
@@ -21,13 +24,13 @@ class NameItem extends StatelessWidget {
           child: Text(value),
         ),
       ),
-    );
+    ));
   }
 
   Widget _favouriteButton(BuildContext context) {
     return IconSlideAction(
       icon: Icons.favorite,
-      color: Colors.primaries[0],
+      color: Theme.of(context).accentColor,
       onTap: () {
         _controller.activeState.close();
         if (onSave != null) onSave();

@@ -6,4 +6,7 @@ class Styles {
   static const cardTitleText = TextStyle(fontWeight: FontWeight.bold);
   static const descriptionText = TextStyle(fontSize: 10.0, color: Colors.grey);
   static const hintText = TextStyle(color: Colors.grey);
+
+  static const sliderClipper = BorderRadius.only(
+      topRight: Radius.circular(10), bottomRight: Radius.circular(10));
 }
