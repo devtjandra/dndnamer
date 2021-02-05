@@ -1,5 +1,7 @@
+import 'package:dndnamer/app/game_list/view/game_list.dart';
 import 'package:dndnamer/app/login/client/login_client.dart';
 import 'package:dndnamer/app/login/view/login.dart';
+import 'package:dndnamer/app/home/view/home.dart';
 import 'package:dndnamer/utils/snack.dart';
 import 'package:dndnamer/values/routes.dart';
 import 'package:dndnamer/values/values.dart';
@@ -13,6 +15,8 @@ class LoginViewModel {
   LoginViewModel(this.ref) : super();
 
   Future<void> goClick(BuildContext context) async {
+    context.read(gameListViewModel).clear();
+    context.read(currentHomeScreen).state = Routes.nameGenerator;
     if (ref.read(isWaitingLogin).state) return;
 
     final email = ref.read(loginEmailTextController).text;
@@ -23,7 +27,7 @@ class LoginViewModel {
       Snack.showFieldErrorSnack(context);
       return;
     }
-    
+
     ref.read(isWaitingLogin).state = true;
 
     if (login) {

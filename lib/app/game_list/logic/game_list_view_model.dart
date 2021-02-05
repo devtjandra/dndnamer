@@ -12,6 +12,10 @@ class GameListViewModel extends StateNotifier<List<Game>> {
     Future.delayed(Duration.zero, () => refreshGame());
   }
 
+  void clear() {
+    state = [];
+  }
+
   Future<void> refreshGame() async {
     if (ref.read(isWaitingGameRefresh).state) return;
 
